@@ -1,0 +1,112 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-charcoal: #171717;
+  --color-sunset: #FF642E;
+  --color-sunset-hover: #FF7B4D;
+  --color-amber: #FFA843;
+  --color-coral: #FF8C66;
+  --color-silver: #D8DCE3;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0d0e11;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #282b34;
+  border-radius: 2px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #FF642E;
+}
+
+/* Diagonal cuts & masks */
+.clip-diagonal-hero {
+  clip-path: polygon(0 0, 100% 0, 100% 75%, 85% 100%, 0 100%);
+}
+
+.clip-diagonal-btn {
+  clip-path: polygon(12px 0%, 100% 0%, calc(100% - 12px) 100%, 0% 100%);
+}
+
+.clip-diagonal-btn-rev {
+  clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 100%, 12px 100%);
+}
+
+.clip-diagonal-card {
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 24px), calc(100% - 24px) 100%, 0 100%);
+}
+
+.clip-diagonal-badge {
+  clip-path: polygon(8px 0, 100% 0, calc(100% - 8px) 100%, 0 100%);
+}
+
+/* Poster Artwork Diagonal Mask Shapes */
+.clip-poster-top {
+  clip-path: polygon(0 0, 100% 0, 100% 32%, 0 78%);
+}
+
+.clip-poster-mid {
+  clip-path: polygon(0 75%, 100% 29%, 100% 86%, 0 100%);
+}
+
+/* Grain texture overlay */
+.bg-grain {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 0);
+  background-size: 24px 24px;
+}
+
+/* Subtle glow */
+.glow-sunset {
+  box-shadow: 0 0 50px -10px rgba(255, 100, 46, 0.45);
+}
+
+.glow-sunset-sm {
+  box-shadow: 0 0 20px -4px rgba(255, 100, 46, 0.4);
+}
+
+.text-stroke-silver {
+  -webkit-text-stroke: 1px rgba(216, 220, 227, 0.35);
+  color: transparent;
+}
+
+.text-stroke-sunset {
+  -webkit-text-stroke: 1.5px #FF642E;
+  color: transparent;
+}
+
+/* Ambient vignette */
+.radial-vignette {
+  background: radial-gradient(circle at 50% 50%, rgba(13, 14, 17, 0) 40%, rgba(13, 14, 17, 0.85) 100%);
+}
+
+/* Subtle scanlines effect for cyberpunk editorial feel */
+.scanlines {
+  background: linear-gradient(
+    rgba(18, 16, 16, 0) 50%, 
+    rgba(0, 0, 0, 0.25) 50%
+  );
+  background-size: 100% 4px;
+}
+
+/* Smooth motion handling */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-delay: -1ms !important;
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    background-attachment: initial !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0s !important;
+    transition-delay: 0s !important;
+  }
+}
