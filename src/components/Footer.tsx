@@ -1,6 +1,7 @@
 import React from "react";
 import { soundFx } from "../utils/audio";
-import { MapPin, Mail, Phone, ArrowUp } from "lucide-react";
+import { FEST_METRICS } from "../data/festivalData";
+import { MapPin, Mail, Phone, ArrowUp, ExternalLink } from "lucide-react";
 
 export const Footer: React.FC = () => {
   const scrollToTop = () => {
@@ -39,7 +40,16 @@ export const Footer: React.FC = () => {
             <div className="font-mono text-xs space-y-2 text-silver-400">
               <p className="flex items-center gap-2">
                 <MapPin className="w-4 h-4 text-sunset shrink-0" />
-                <span>CGIT Campus, Sejbahar, Raipur, Chhattisgarh — 492015</span>
+                <a
+                  href={FEST_METRICS.mapsUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="hover:text-sunset transition-colors underline decoration-white/20 hover:decoration-sunset underline-offset-2 flex items-center gap-1.5"
+                  title="Open CGIT Raipur on Google Maps"
+                >
+                  <span>CGIT Campus, Sejbahar, Raipur, Chhattisgarh — 492015</span>
+                  <ExternalLink className="w-3 h-3 text-sunset shrink-0" />
+                </a>
               </p>
               <p className="flex items-center gap-2">
                 <Mail className="w-4 h-4 text-sunset shrink-0" />
@@ -99,32 +109,37 @@ export const Footer: React.FC = () => {
             <ul className="space-y-2.5 font-mono text-xs">
               <li>
                 <a href="#events" onClick={() => soundFx.playClick()} className="hover:text-sunset transition-colors">
-                  → SYNAPSE 36 HACKATHON
+                  → HACK4COMMUNITY HACKATHON
                 </a>
               </li>
               <li>
                 <a href="#events" onClick={() => soundFx.playClick()} className="hover:text-sunset transition-colors">
-                  → ROBO-WARS COMBAT (30KG)
+                  → FOUNDER'S FORGE IDEATHON
                 </a>
               </li>
               <li>
                 <a href="#events" onClick={() => soundFx.playClick()} className="hover:text-sunset transition-colors">
-                  → NEXUS ESPORTS (VALORANT)
+                  → PROMPTME AI CHALLENGE
                 </a>
               </li>
               <li>
                 <a href="#events" onClick={() => soundFx.playClick()} className="hover:text-sunset transition-colors">
-                  → CODE RED ALGORITHMIC DUEL
+                  → ROBO SOCCER & ROBO SUMO
                 </a>
               </li>
               <li>
                 <a href="#events" onClick={() => soundFx.playClick()} className="hover:text-sunset transition-colors">
-                  → AURA: BATTLE OF BANDS
+                  → TRUSS-CRAFT STRUCTURES
                 </a>
               </li>
               <li>
                 <a href="#events" onClick={() => soundFx.playClick()} className="hover:text-sunset transition-colors">
-                  → DESIGN-STRIKE UI/UX
+                  → E-SPORTS (BGMI & FREE FIRE)
+                </a>
+              </li>
+              <li>
+                <a href="#events" onClick={() => soundFx.playClick()} className="hover:text-sunset transition-colors">
+                  → CULTURAL & ARTIST NIGHT
                 </a>
               </li>
             </ul>
@@ -183,9 +198,20 @@ export const Footer: React.FC = () => {
             </div>
 
             <div className="font-mono text-[10px] text-silver-500 space-y-1">
-              <p>LAT: 21.2514° N</p>
-              <p>LONG: 81.6296° E</p>
-              <p className="text-sunset">ELEVATION: 298M</p>
+              <a
+                href={FEST_METRICS.mapsUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="block hover:text-sunset transition-colors group cursor-pointer"
+                title="Open CGIT Raipur on Google Maps"
+              >
+                <p>LAT: 21.1632° N</p>
+                <p>LONG: 81.6591° E</p>
+                <p className="text-sunset underline decoration-sunset/40 group-hover:decoration-sunset underline-offset-2 mt-1 flex items-center gap-1">
+                  <span>VIEW GOOGLE MAPS</span>
+                  <ExternalLink className="w-2.5 h-2.5" />
+                </p>
+              </a>
             </div>
           </div>
 

@@ -255,7 +255,7 @@ export const RegistrationModal: React.FC<RegistrationModalProps> = ({ initialEve
                   </div>
                   <div>
                     <span className="text-[10px] text-silver-500 uppercase block">DATES & VENUE</span>
-                    <span className="font-bold text-white text-xs block">OCT 28-30 • CGIT RAIPUR</span>
+                    <span className="font-bold text-white text-xs block">27/10/26 – 30/10/26 • CGIT RAIPUR</span>
                   </div>
                 </div>
 

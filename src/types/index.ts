@@ -18,7 +18,7 @@ export interface TechEvent {
   entryFee: string;
   venue: string;
   scheduleTime: string;
-  day: 'Day 1' | 'Day 2' | 'Day 3';
+  day: 'Day 1' | 'Day 2' | 'Day 3' | 'Day 4';
   highlights: string[];
   rules: string[];
   featured?: boolean;
@@ -30,7 +30,7 @@ export interface ScheduleItem {
   title: string;
   category: string;
   venue: string;
-  day: 1 | 2 | 3;
+  day: 1 | 2 | 3 | 4;
   speakerOrHost?: string;
 }
 

@@ -2,16 +2,15 @@ import React, { useState, useEffect } from "react";
 import { DiagonalArtwork } from "./DiagonalArtwork";
 import { soundFx } from "../utils/audio";
 import { FEST_METRICS } from "../data/festivalData";
-import { ArrowDown, Calendar, MapPin, Trophy, ShieldCheck, Terminal } from "lucide-react";
+import { ArrowDown, Calendar, MapPin, Trophy, ShieldCheck, Terminal, ExternalLink } from "lucide-react";
 
 interface HeroSectionProps {
   onOpenRegister: () => void;
-  onOpenPoster: () => void;
 }
 
-export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenRegister, onOpenPoster }) => {
-  // Target date: October 28, 2026, 09:00 AM IST
-  const targetTime = new Date("2026-10-28T09:00:00+05:30").getTime();
+export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenRegister }) => {
+  // Target date: October 27, 2026, 09:00 AM IST (27/10/26)
+  const targetTime = new Date("2026-10-27T09:00:00+05:30").getTime();
   const [timeLeft, setTimeLeft] = useState({
     days: 0,
     hours: 0,
@@ -42,13 +41,8 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenRegister, onOpen
   return (
     <section 
       id="hero"
-      className="relative min-h-[100svh] w-full bg-[#0d0e11] overflow-hidden flex flex-col justify-between pt-24 pb-12 sm:pt-28 sm:pb-16"
+      className="relative min-h-[100svh] w-full bg-[#0d0e11] overflow-hidden flex flex-col justify-between pt-28 pb-12 sm:pt-36 sm:pb-16 lg:pt-36"
     >
-      <div
-        className="absolute inset-0 bg-cover bg-center opacity-[0.45] pointer-events-none"
-        style={{ backgroundImage: "url('/assets/gec1.jpg')" }}
-      />
-      <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-b from-transparent to-[#0d0e11] pointer-events-none" />
       {/* Background ambient lighting & subtle geometric architectural grid */}
       <div className="absolute inset-0 bg-dark-radial pointer-events-none opacity-80" />
       <div className="absolute -top-32 right-1/4 w-96 h-96 bg-sunset/10 rounded-full blur-[120px] pointer-events-none" />
@@ -104,16 +98,33 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenRegister, onOpen
 
             {/* Poster Motto */}
             <div className="my-4 w-fit overflow-hidden border-l-2 border-sunset py-0.5 pl-4">
-              <div className="hero-motto-reveal space-y-1">
-                <p className="font-mono text-sm sm:text-base font-bold tracking-[0.22em] text-silver-200 uppercase">
-                  {FEST_METRICS.motto.primary.split(",")[0]}
-                </p>
-                <p className="font-mono text-sm sm:text-base font-bold tracking-[0.22em] text-sunset uppercase">
-                  {FEST_METRICS.motto.primary.split(",")[1]?.trim() || "THE MORE YOU CAN"}
-                </p>
-                <p className="font-sans text-xs sm:text-sm text-silver-400 tracking-wide mt-2">
-                  {FEST_METRICS.motto.sub}
-                </p>
+              <div className="hero-motto-reveal space-y-3">
+                <div>
+                  <p className="font-mono text-sm sm:text-base font-bold tracking-[0.22em] text-silver-200 uppercase">
+                    {FEST_METRICS.motto.primary.split(",")[0]}
+                  </p>
+                  <p className="font-mono text-sm sm:text-base font-bold tracking-[0.22em] text-sunset uppercase">
+                    {FEST_METRICS.motto.primary.split(",")[1]?.trim() || "THE MORE YOU CAN"}
+                  </p>
+                </div>
+
+                <div className="space-y-3 pt-1">
+                  <h2 className="font-display font-bold text-base sm:text-lg text-white tracking-wide">
+                    AVESH 2026 – Annual Technical Fest
+                  </h2>
+                  
+                  <p className="font-sans text-xs sm:text-sm text-silver-300 leading-relaxed">
+                    <strong className="text-white font-semibold">AVESH</strong> is the annual technical fest of Chhattisgarh Institute of Technology (CIT), Raipur, Chhattisgarh, one of the region’s long-established and prestigious engineering institutions. The fest brings together students from diverse backgrounds to celebrate innovation, creativity, technical excellence, and cultural expression.
+                  </p>
+
+                  <p className="font-sans text-xs sm:text-sm text-silver-400 leading-relaxed">
+                    The event features a wide range of activities, including hackathons, Robo Soccer, technical competitions, and cultural performances such as dance, singing, and drama. It provides a dynamic platform for students to showcase their talents, exchange ideas, collaborate with peers, and explore new areas of learning.
+                  </p>
+
+                  <p className="font-sans text-xs sm:text-sm text-silver-400 leading-relaxed">
+                    More than just a competition, AVESH is an experience that encourages students to challenge themselves, develop new skills, build meaningful connections, and learn through teamwork and healthy competition. It fosters a spirit of innovation, collaboration, and personal growth while creating lasting memories and strengthening the student community.
+                  </p>
+                </div>
               </div>
             </div>
 
@@ -125,7 +136,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenRegister, onOpen
                   KICKOFF IN:
                 </span>
                 <span className="font-mono text-[10px] tracking-wider text-sunset">
-                  OCT 28-30, 2026
+                  27/10/26 – 30/10/26
                 </span>
               </div>
               <div className="grid grid-cols-4 gap-2 text-center">
@@ -189,10 +200,19 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenRegister, onOpen
 
             {/* Geo & Metrics Footer Metadata */}
             <div className="flex flex-wrap items-center gap-4 text-silver-500 font-mono text-[10px] tracking-wider mt-6 pt-4 border-t border-white/5">
-              <span className="flex items-center gap-1">
-                <MapPin className="w-3 h-3 text-sunset" />
-                {FEST_METRICS.coordinates}
-              </span>
+              <a
+                href={FEST_METRICS.mapsUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="flex items-center gap-1.5 text-silver-400 hover:text-sunset transition-colors group cursor-pointer"
+                title="Open CGIT Raipur on Google Maps"
+              >
+                <MapPin className="w-3 h-3 text-sunset group-hover:scale-110 transition-transform" />
+                <span className="underline decoration-dotted decoration-sunset/50 group-hover:decoration-sunset underline-offset-2">
+                  CGIT RAIPUR (GOOGLE MAPS)
+                </span>
+                <ExternalLink className="w-2.5 h-2.5 opacity-60 group-hover:opacity-100" />
+              </a>
               <span>•</span>
               <span className="flex items-center gap-1">
                 <Trophy className="w-3 h-3 text-amber" />
@@ -210,7 +230,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenRegister, onOpen
           {/* RIGHT COLUMN: CENTRAL DIAGONAL POSTER ARTWORK */}
           {/* ========================================================= */}
           <div className="lg:col-span-6 xl:col-span-7 flex justify-center items-center order-1 lg:order-2 py-4">
-            <DiagonalArtwork onOpenPosterModal={onOpenPoster} />
+            <DiagonalArtwork />
           </div>
 
         </div>

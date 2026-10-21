@@ -7,33 +7,33 @@ export const AboutSection: React.FC = () => {
   const pillars = [
     {
       code: "01",
-      title: "SYNAPSE COMPUTING",
-      subtitle: "36-Hour Hackathon & Agentic AI",
-      desc: "Developing scalable real-world prototypes with deep learning, distributed cloud infra, and autonomous agent loops.",
+      title: "HACK4COMMUNITY",
+      subtitle: "8-Hour Innovation Sprint & Demo",
+      desc: "An innovation sprint where student teams collaborate, prototype and present practical ideas that solve real community, campus, and public service challenges.",
       icon: Terminal,
       color: "from-sunset/20 to-transparent",
     },
     {
       code: "02",
-      title: "ROBOKINETICS",
-      subtitle: "Combat Bots & Autonomous Drones",
-      desc: "High-torque spinning drums, hardened armor plates, and telemetry-guided obstacle drones clashing in bulletproof arenas.",
+      title: "ROBOTICS BATTLES",
+      subtitle: "Robo Soccer & Sumo Dohyo",
+      desc: "High-velocity bot soccer knockout matches and circular dohyo ring sumo bouts testing torque, traction, low-profile wedges, and driver strategy.",
       icon: Cpu,
       color: "from-amber/20 to-transparent",
     },
     {
       code: "03",
-      title: "NEO-CREATIVE",
-      subtitle: "UI/UX & Interactive Media",
-      desc: "Bridging architectural design systems, tactile user experiences, and competitive esports under live crowd casting.",
+      title: "AI & E-SPORTS",
+      subtitle: "PromptMe & Auditorium Gaming",
+      desc: "An on-the-spot 3-hour Prompt Engineering challenge, plus BGMI and Free Fire championship matches telecast live on the auditorium big screen.",
       icon: Zap,
       color: "from-coral/20 to-transparent",
     },
     {
       code: "04",
-      title: "CULTURAL CELEBRATION",
-      subtitle: "Band Battles & Dance Crews",
-      desc: "When the sun dips behind the Raipur skyline, the amphitheater lights illuminate live rock bands, hip-hop crews, and EDM artists.",
+      title: "CULTURAL & ARTIST NIGHT",
+      subtitle: "Stage Competitions & Live Headliner",
+      desc: "Four live evening competitions in Solo/Group Singing and Dance, culminating in a star celebrity artist night and a dance floor DJ set.",
       icon: Flame,
       color: "from-sunset/30 to-amber/10",
     },
@@ -41,12 +41,6 @@ export const AboutSection: React.FC = () => {
 
   return (
     <section id="about" className="relative py-24 sm:py-32 bg-[#0e1014] overflow-hidden border-t border-white/5">
-      <div
-        className="absolute inset-0 bg-cover bg-center opacity-[0.45] pointer-events-none"
-        style={{ backgroundImage: "url('/assets/gec9.jpeg')" }}
-      />
-      <div className="absolute inset-x-0 top-0 h-1/3 bg-gradient-to-b from-[#0d0e11] to-transparent pointer-events-none" />
-      <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-b from-transparent to-[#0e1014] pointer-events-none" />
       {/* Background architectural guides */}
       <div className="absolute inset-0 bg-grain opacity-30 pointer-events-none" />
       <div className="absolute top-1/2 left-0 w-96 h-96 bg-sunset/5 rounded-full blur-[140px] pointer-events-none" />
@@ -69,9 +63,12 @@ export const AboutSection: React.FC = () => {
           </div>
 
           <div className="lg:max-w-md">
-            <p className="font-sans text-sm sm:text-base text-silver-400 leading-relaxed">
-              Founded as the flagship annual tech festival of <strong className="text-silver-200">CGIT Raipur</strong>, AVESH represents the synthesis of collegiate ambition, industrial robotics, and cinematic digital expression.
+            <p className="font-sans text-sm sm:text-base text-silver-400 leading-relaxed mb-3">
+              AVESH is the annual technical and cultural fest of <strong className="text-silver-200">CGIT Raipur</strong> (formerly known as GEC Raipur): four days where engineering meets expression. Two days of competitions in code, ideas, robotics and structures, a cultural evening on stage, and a closing artist night under the lights.
             </p>
+            <span className="font-mono text-xs text-sunset tracking-wider uppercase block">
+              // FESTIVAL HEAD: DR. SHWETA CHOUBEY
+            </span>
           </div>
         </div>
 
@@ -119,7 +116,7 @@ export const AboutSection: React.FC = () => {
           })}
         </div>
 
-        {/* Fest By The Numbers Banner */}
+        {/* Fest By The Numbers Banner from Official Brochure */}
         <div className="relative p-8 sm:p-10 bg-gradient-to-r from-[#171717] via-[#1c1e24] to-[#171717] rounded-sm border border-white/10 shadow-xl overflow-hidden">
           <div className="absolute top-0 right-0 w-64 h-full bg-gradient-to-l from-sunset/10 to-transparent pointer-events-none" />
           
@@ -128,11 +125,11 @@ export const AboutSection: React.FC = () => {
               <div className="flex items-center justify-center gap-2 mb-1">
                 <Trophy className="w-4 h-4 text-amber" />
                 <span className="font-display font-black text-3xl sm:text-4xl text-white">
-                  ₹2.5L+
+                  8
                 </span>
               </div>
               <span className="font-mono text-xs tracking-widest text-silver-400 uppercase">
-                TOTAL CASH PRIZE POOL
+                TECHNICAL COMPETITIONS
               </span>
             </div>
 
@@ -140,35 +137,35 @@ export const AboutSection: React.FC = () => {
               <div className="flex items-center justify-center gap-2 mb-1">
                 <Users className="w-4 h-4 text-sunset" />
                 <span className="font-display font-black text-3xl sm:text-4xl text-white">
-                  3,500+
+                  4
                 </span>
               </div>
               <span className="font-mono text-xs tracking-widest text-silver-400 uppercase">
-                ACTIVE PARTICIPANTS
+                CULTURAL COMPETITIONS
               </span>
             </div>
 
             <div className="pt-4 lg:pt-0">
               <div className="flex items-center justify-center gap-2 mb-1">
-                <Building2 className="w-4 h-4 text-silver-300" />
+                <Flame className="w-4 h-4 text-coral" />
                 <span className="font-display font-black text-3xl sm:text-4xl text-white">
-                  60+
+                  1
                 </span>
               </div>
               <span className="font-mono text-xs tracking-widest text-silver-400 uppercase">
-                COLLEGES ACROSS INDIA
+                GRAND ARTIST NIGHT
               </span>
             </div>
 
             <div className="pt-4 lg:pt-0">
               <div className="flex items-center justify-center gap-2 mb-1">
-                <Zap className="w-4 h-4 text-coral" />
+                <Zap className="w-4 h-4 text-sunset" />
                 <span className="font-display font-black text-3xl sm:text-4xl text-white">
-                  24+
+                  4 DAYS
                 </span>
               </div>
               <span className="font-mono text-xs tracking-widest text-silver-400 uppercase">
-                FLAGSHIP COMPETITIONS
+                27 – 30 OCTOBER 2026
               </span>
             </div>
           </div>

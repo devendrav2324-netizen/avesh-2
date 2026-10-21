@@ -10,7 +10,6 @@ import { RegistrationCTA } from "./components/RegistrationCTA";
 import { Footer } from "./components/Footer";
 import { EventDetailModal } from "./components/EventDetailModal";
 import { RegistrationModal } from "./components/RegistrationModal";
-import { PosterModal } from "./components/PosterModal";
 import { TechEvent } from "./types";
 import { soundFx } from "./utils/audio";
 
@@ -20,7 +19,6 @@ export const App: React.FC = () => {
   const [selectedEventForDetail, setSelectedEventForDetail] = useState<TechEvent | null>(null);
   const [selectedEventForRegister, setSelectedEventForRegister] = useState<TechEvent | null>(null);
   const [registerModalOpen, setRegisterModalOpen] = useState(false);
-  const [posterModalOpen, setPosterModalOpen] = useState(false);
 
   // Cinematic Intro Sequence
   useEffect(() => {
@@ -121,13 +119,11 @@ export const App: React.FC = () => {
       {/* ======================================================== */}
       <Header 
         onOpenRegister={() => handleOpenRegister()} 
-        onOpenPoster={() => setPosterModalOpen(true)}
       />
 
       <main>
         <HeroSection 
           onOpenRegister={() => handleOpenRegister()} 
-          onOpenPoster={() => setPosterModalOpen(true)}
         />
 
         <AboutSection />
@@ -168,12 +164,6 @@ export const App: React.FC = () => {
         <RegistrationModal
           initialEvent={selectedEventForRegister}
           onClose={() => setRegisterModalOpen(false)}
-        />
-      )}
-
-      {posterModalOpen && (
-        <PosterModal
-          onClose={() => setPosterModalOpen(false)}
         />
       )}
 

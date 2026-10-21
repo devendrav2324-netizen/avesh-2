@@ -33,7 +33,7 @@ export const RegistrationCTA: React.FC<RegistrationCTAProps> = ({ onOpenRegister
           </h2>
 
           <p className="font-sans text-sm sm:text-base text-silver-300 max-w-2xl mx-auto leading-relaxed mb-8">
-            Join over 3,500 collegiate innovators at CGIT Raipur. Showcase your robotics, deploy 36-hour hackathon builds, and compete for ₹2,50,000+ in cash prizes.
+            Join collegiate innovators at CGIT Raipur. Showcase your robotics, build 8-hour Hack4Community prototypes, pitch at Founder's Forge, and celebrate across 4 days of technical and cultural excellence.
           </p>
 
           {/* Registration Trigger Button */}

@@ -4,12 +4,37 @@ import { soundFx } from "../utils/audio";
 import { Calendar, Clock, MapPin, User, ChevronRight } from "lucide-react";
 
 export const ScheduleSection: React.FC = () => {
-  const [selectedDay, setSelectedDay] = useState<1 | 2 | 3>(1);
+  const [selectedDay, setSelectedDay] = useState<1 | 2 | 3 | 4>(1);
 
   const daysInfo = [
-    { day: 1 as const, label: "DAY 01", date: "OCTOBER 28, 2026", theme: "Inauguration, Hackathon Kickoff & Robo Qualifiers" },
-    { day: 2 as const, label: "DAY 02", date: "OCTOBER 29, 2026", theme: "Combat Robo-Wars, Code Red & Dance Crew Showdown" },
-    { day: 3 as const, label: "DAY 03", date: "OCTOBER 30, 2026", theme: "Hackathon Juries, Tech Summits & Grand Celebrity Concert" },
+    { 
+      day: 1 as const, 
+      label: "DAY 01 · 27 OCT", 
+      date: "TUESDAY · 10 AM – 4 PM", 
+      title: "Technical Day 1",
+      theme: "Hack4Community Sprint, PromptMe, Quiz & Robo Soccer" 
+    },
+    { 
+      day: 2 as const, 
+      label: "DAY 02 · 28 OCT", 
+      date: "WEDNESDAY · 10 AM – 4 PM", 
+      title: "Technical Day 2",
+      theme: "Founder's Forge, Truss-Craft, E-Sports & Robo Sumo" 
+    },
+    { 
+      day: 3 as const, 
+      label: "DAY 03 · 29 OCT", 
+      date: "THURSDAY · 3 PM – 8 PM", 
+      title: "Cultural Day",
+      theme: "Solo & Group Singing, Solo & Group Dance Competitions" 
+    },
+    { 
+      day: 4 as const, 
+      label: "DAY 04 · 30 OCT", 
+      date: "FRIDAY · 5 PM ONWARDS", 
+      title: "Grand Artist Night",
+      theme: "Auditorium Highlights, Live Celebrity Artist Show & DJ Night" 
+    },
   ];
 
   const currentDayEvents = SCHEDULE_DATA.filter((s) => s.day === selectedDay);
@@ -39,7 +64,7 @@ export const ScheduleSection: React.FC = () => {
               EVENT <span className="text-sunset">SCHEDULE</span>.
             </h2>
             <p className="font-sans text-sm sm:text-base text-silver-400 mt-2 max-w-xl">
-              Three continuous days of non-stop innovation, competitive engineering, and sunset celebrations at CGIT Raipur.
+              Four continuous days (27/10/26 – 30/10/26) of non-stop innovation, competitive engineering, and celebrations at CGIT Raipur.
             </p>
           </div>
 
@@ -56,7 +81,7 @@ export const ScheduleSection: React.FC = () => {
         </div>
 
         {/* Day Selector Tabs */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-12">
           {daysInfo.map((item) => (
             <button
               key={item.day}
@@ -96,7 +121,7 @@ export const ScheduleSection: React.FC = () => {
 
         {/* Timeline Items List */}
         <div className="space-y-4">
-          {currentDayEvents.map((item, index) => (
+          {currentDayEvents.map((item) => (
             <div
               key={item.id}
               className="group p-5 sm:p-6 bg-[#171717] rounded-sm border border-white/5 hover:border-sunset/40 transition-all duration-200 flex flex-col lg:flex-row lg:items-center justify-between gap-4"
