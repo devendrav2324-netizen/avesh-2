@@ -11,6 +11,7 @@ interface EventShowcaseProps {
 
 export const EventShowcase: React.FC<EventShowcaseProps> = ({ onSelectEvent, onRegisterEvent }) => {
   const [activeCategory, setActiveCategory] = useState<EventCategory>("all");
+  const [selectedEventId, setSelectedEventId] = useState<string | null>(null);
 
   const categories: { key: EventCategory; label: string }[] = [
     { key: "all", label: "ALL EVENTS" },
@@ -91,6 +92,8 @@ export const EventShowcase: React.FC<EventShowcaseProps> = ({ onSelectEvent, onR
             <div
               key={event.id}
               className={`group relative bg-[#171717] rounded-sm border transition-all duration-300 flex flex-col justify-between overflow-hidden clip-diagonal-card hover:shadow-[0_15px_40px_rgba(0,0,0,0.6)] ${
+                selectedEventId === event.id ? "-translate-y-2 scale-[1.03] z-10 shadow-[0_20px_45px_rgba(255,100,46,0.2)]" : ""
+              } ${
                 event.featured 
                   ? "border-sunset/40 hover:border-sunset" 
                   : "border-white/10 hover:border-white/30"
@@ -169,6 +172,7 @@ export const EventShowcase: React.FC<EventShowcaseProps> = ({ onSelectEvent, onR
                 <button
                   onClick={() => {
                     soundFx.playClick();
+                    setSelectedEventId(event.id);
                     onSelectEvent(event);
                   }}
                   className="flex-1 py-2.5 px-3 rounded-sm bg-white/5 hover:bg-white/10 text-silver-300 hover:text-white border border-white/10 font-mono text-xs tracking-wider transition-all flex items-center justify-center gap-1.5"
@@ -180,6 +184,7 @@ export const EventShowcase: React.FC<EventShowcaseProps> = ({ onSelectEvent, onR
                 <button
                   onClick={() => {
                     soundFx.playClick();
+                    setSelectedEventId(event.id);
                     onRegisterEvent(event);
                   }}
                   className="py-2.5 px-4 rounded-sm bg-sunset hover:bg-sunset-hover text-white font-mono text-xs font-bold tracking-wider clip-diagonal-btn transition-all flex items-center justify-center gap-1 shadow-md hover:shadow-sunset/40"

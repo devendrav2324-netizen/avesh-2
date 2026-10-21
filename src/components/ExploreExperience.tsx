@@ -72,6 +72,12 @@ export const ExploreExperience: React.FC = () => {
 
   return (
     <section id="explore" className="relative py-24 sm:py-32 bg-[#0e1014] border-t border-white/5 overflow-hidden">
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 bg-cover bg-center opacity-20 pointer-events-none"
+        style={{ backgroundImage: "url('/assets/city-sunset.jpg')" }}
+      />
+      <div className="absolute inset-0 bg-gradient-to-b from-[#0e1014]/80 via-[#0e1014]/90 to-[#0e1014]/85 pointer-events-none" />
       <div className="absolute inset-0 bg-grain opacity-25 pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -104,7 +110,7 @@ export const ExploreExperience: React.FC = () => {
                 }}
                 className={`px-4 py-3 text-left rounded-sm border transition-all duration-300 ${
                   activeStep === idx
-                    ? "bg-white/10 border-sunset text-white shadow-lg"
+                    ? "-translate-y-2 scale-[1.04] z-10 bg-white/10 border-sunset text-white shadow-[0_16px_32px_rgba(255,100,46,0.2)]"
                     : "bg-[#171717] border-white/5 text-silver-400 hover:text-white hover:border-white/20"
                 }`}
               >

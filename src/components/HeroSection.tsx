@@ -80,8 +80,16 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenRegister, onOpen
             <div className="relative mb-3">
               <h1 className="font-display font-black text-5xl sm:text-6xl md:text-7xl xl:text-8xl tracking-tight text-white uppercase leading-[0.9]">
                 AVESH
-                <span className="block text-sunset font-extrabold text-4xl sm:text-5xl md:text-6xl xl:text-7xl tracking-tighter mt-1">
-                  2026
+                <span
+                  role="text"
+                  aria-label="2026"
+                  className="hero-year-window mt-1 block h-[1em] overflow-hidden text-4xl font-extrabold tracking-tighter text-sunset sm:text-5xl md:text-6xl xl:text-7xl"
+                >
+                  <span aria-hidden="true" className="hero-year-track block">
+                    <span className="block h-[1em] leading-none">2026</span>
+                    <span className="block h-[1em] leading-none text-white">2026</span>
+                    <span className="block h-[1em] leading-none text-sunset">2026</span>
+                  </span>
                 </span>
               </h1>
               
@@ -95,16 +103,18 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenRegister, onOpen
             </div>
 
             {/* Poster Motto */}
-            <div className="border-l-2 border-sunset pl-4 my-4 py-0.5 space-y-1">
-              <p className="font-mono text-sm sm:text-base font-bold tracking-[0.22em] text-silver-200 uppercase">
-                {FEST_METRICS.motto.primary.split(",")[0]}
-              </p>
-              <p className="font-mono text-sm sm:text-base font-bold tracking-[0.22em] text-sunset uppercase">
-                {FEST_METRICS.motto.primary.split(",")[1]?.trim() || "THE MORE YOU CAN"}
-              </p>
-              <p className="font-sans text-xs sm:text-sm text-silver-400 tracking-wide mt-2">
-                {FEST_METRICS.motto.sub}
-              </p>
+            <div className="my-4 w-fit overflow-hidden border-l-2 border-sunset py-0.5 pl-4">
+              <div className="hero-motto-reveal space-y-1">
+                <p className="font-mono text-sm sm:text-base font-bold tracking-[0.22em] text-silver-200 uppercase">
+                  {FEST_METRICS.motto.primary.split(",")[0]}
+                </p>
+                <p className="font-mono text-sm sm:text-base font-bold tracking-[0.22em] text-sunset uppercase">
+                  {FEST_METRICS.motto.primary.split(",")[1]?.trim() || "THE MORE YOU CAN"}
+                </p>
+                <p className="font-sans text-xs sm:text-sm text-silver-400 tracking-wide mt-2">
+                  {FEST_METRICS.motto.sub}
+                </p>
+              </div>
             </div>
 
             {/* Live Countdown Timer */}

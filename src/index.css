@@ -2,13 +2,60 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --color-charcoal: #171717;
-  --color-sunset: #FF642E;
-  --color-sunset-hover: #FF7B4D;
-  --color-amber: #FFA843;
-  --color-coral: #FF8C66;
-  --color-silver: #D8DCE3;
+/* =====================================================
+   shadcn/ui CSS Variables (dark theme — matches site palette)
+   ===================================================== */
+@layer base {
+  :root {
+    --background: 222 14% 7%;        /* #0d0e11 */
+    --foreground: 220 15% 95%;       /* #f2f4f8 */
+
+    --card: 222 14% 9%;
+    --card-foreground: 220 15% 95%;
+
+    --popover: 222 14% 9%;
+    --popover-foreground: 220 15% 95%;
+
+    /* Primary = sunset orange #FF642E */
+    --primary: 18 100% 59%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 222 12% 16%;
+    --secondary-foreground: 220 15% 95%;
+
+    --muted: 222 12% 14%;
+    --muted-foreground: 220 10% 56%;
+
+    --accent: 18 100% 59%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 222 12% 20%;
+    --input: 222 12% 20%;
+    --ring: 18 100% 59%;
+
+    --radius: 0.5rem;
+
+    /* Site brand tokens */
+    --color-charcoal: #171717;
+    --color-sunset: #FF642E;
+    --color-sunset-hover: #FF7B4D;
+    --color-amber: #FFA843;
+    --color-coral: #FF8C66;
+    --color-silver: #D8DCE3;
+  }
+}
+
+/* Apply base border/text/bg from CSS vars */
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
 }
 
 /* Custom Scrollbar */
@@ -89,6 +136,41 @@
   background: radial-gradient(circle at 50% 50%, rgba(13, 14, 17, 0) 40%, rgba(13, 14, 17, 0.85) 100%);
 }
 
+.hero-motto-reveal {
+  animation: hero-motto-slide 8s ease-in-out 1.2s infinite;
+}
+
+@keyframes hero-motto-slide {
+  0%, 14% {
+    opacity: 0;
+    transform: translateX(-110%);
+  }
+  30%, 80% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  92%, 100% {
+    opacity: 0;
+    transform: translateX(-110%);
+  }
+}
+
+.hero-year-track {
+  animation: hero-year-slide 25.8s ease-in-out infinite;
+}
+
+@keyframes hero-year-slide {
+  0%, 77.5% {
+    transform: translateY(0);
+  }
+  81%, 96.5% {
+    transform: translateY(-33.333%);
+  }
+  100% {
+    transform: translateY(-66.666%);
+  }
+}
+
 /* Subtle scanlines effect for cyberpunk editorial feel */
 .scanlines {
   background: linear-gradient(
@@ -108,5 +190,13 @@
     scroll-behavior: auto !important;
     transition-duration: 0s !important;
     transition-delay: 0s !important;
+  }
+
+  .hero-motto-reveal {
+    animation: none;
+  }
+
+  .hero-year-track {
+    animation: none;
   }
 }

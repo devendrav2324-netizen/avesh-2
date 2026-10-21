@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { SPONSORS_DATA } from "../data/festivalData";
 import { soundFx } from "../utils/audio";
 import { ShieldCheck, Cpu, Server, Wrench, Zap, Flame, Globe, Shield, Radio } from "lucide-react";
 
 export const SponsorsSection: React.FC = () => {
+  const [selectedSponsorIndex, setSelectedSponsorIndex] = useState<number | null>(null);
+
   const getIcon = (iconName: string) => {
     switch (iconName) {
       case "Cpu": return Cpu;
@@ -18,7 +20,13 @@ export const SponsorsSection: React.FC = () => {
   };
 
   return (
-    <section id="sponsors" className="relative py-24 sm:py-32 bg-[#0e1014] border-t border-white/5">
+    <section id="sponsors" className="relative py-24 sm:py-32 bg-[#0e1014] border-t border-white/5 overflow-hidden">
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 bg-cover bg-center opacity-15 pointer-events-none"
+        style={{ backgroundImage: "url('/assets/gec1.jpg')" }}
+      />
+      <div className="absolute inset-0 bg-gradient-to-b from-[#0e1014]/80 via-[#0e1014]/90 to-[#0e1014]/85 pointer-events-none" />
       <div className="absolute inset-0 bg-grain opacity-25 pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -44,10 +52,20 @@ export const SponsorsSection: React.FC = () => {
           {SPONSORS_DATA.map((sponsor, index) => {
             const Icon = getIcon(sponsor.iconName);
             return (
-              <div
+              <button
                 key={index}
+                type="button"
                 onMouseEnter={() => soundFx.playHover()}
-                className="group relative p-6 sm:p-8 bg-[#171717] rounded-sm border border-white/5 hover:border-sunset/50 transition-all duration-300 flex flex-col items-center text-center justify-between hover:shadow-[0_10px_30px_rgba(255,100,46,0.1)] clip-diagonal-card"
+                onClick={() => {
+                  soundFx.playClick();
+                  setSelectedSponsorIndex(index);
+                }}
+                aria-pressed={selectedSponsorIndex === index}
+                className={`group relative w-full appearance-none p-6 sm:p-8 bg-[#171717] rounded-sm border border-white/5 hover:border-sunset/50 transition-all duration-300 flex flex-col items-center text-center justify-between hover:shadow-[0_10px_30px_rgba(255,100,46,0.1)] clip-diagonal-card ${
+                  selectedSponsorIndex === index
+                    ? "-translate-y-2 scale-[1.04] z-10 border-sunset shadow-[0_16px_32px_rgba(255,100,46,0.2)]"
+                    : ""
+                }`}
               >
                 {/* Tier Badge */}
                 <span className="font-mono text-[9px] sm:text-[10px] tracking-widest uppercase text-silver-500 group-hover:text-sunset transition-colors mb-4">
@@ -68,7 +86,7 @@ export const SponsorsSection: React.FC = () => {
                     {sponsor.domain}
                   </p>
                 </div>
-              </div>
+              </button>
             );
           })}
         </div>

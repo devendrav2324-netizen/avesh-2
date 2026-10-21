@@ -15,7 +15,13 @@ export const ScheduleSection: React.FC = () => {
   const currentDayEvents = SCHEDULE_DATA.filter((s) => s.day === selectedDay);
 
   return (
-    <section id="schedule" className="relative py-24 sm:py-32 bg-[#0d0e11] border-t border-white/5">
+    <section id="schedule" className="relative py-24 sm:py-32 bg-[#0d0e11] border-t border-white/5 overflow-hidden">
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 bg-cover bg-center opacity-15 pointer-events-none"
+        style={{ backgroundImage: "url('/assets/gec10.jpeg')" }}
+      />
+      <div className="absolute inset-0 bg-gradient-to-b from-[#0d0e11]/85 via-[#0d0e11]/90 to-[#0d0e11]/85 pointer-events-none" />
       <div className="absolute inset-0 bg-grain opacity-25 pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -60,7 +66,7 @@ export const ScheduleSection: React.FC = () => {
               }}
               className={`p-5 text-left rounded-sm border transition-all duration-300 flex flex-col justify-between clip-diagonal-card ${
                 selectedDay === item.day
-                  ? "bg-[#1f2229] border-sunset text-white shadow-[0_0_20px_rgba(255,100,46,0.2)]"
+                  ? "-translate-y-2 scale-[1.03] z-10 bg-[#1f2229] border-sunset text-white shadow-[0_0_28px_rgba(255,100,46,0.5)]"
                   : "bg-[#171717] border-white/5 text-silver-400 hover:text-white hover:border-white/20"
               }`}
             >
