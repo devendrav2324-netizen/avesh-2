@@ -2,6 +2,7 @@
 class SoundManager {
   private ctx: AudioContext | null = null;
   private enabled: boolean = false;
+  private clickAudio = new Audio("/assets/digital-click.mp3");
   private ambientGain: GainNode | null = null;
   private ambientOsc1: OscillatorNode | null = null;
   private ambientOsc2: OscillatorNode | null = null;
@@ -62,7 +63,10 @@ class SoundManager {
 
   public playClick() {
     if (!this.enabled) return;
-    this.playChirp(1200, 0.05);
+    this.clickAudio.currentTime = 0;
+    void this.clickAudio.play().catch(() => {
+      // Playback can be blocked by the browser.
+    });
   }
 
   public playSuccess() {
