@@ -3,6 +3,7 @@ import { TechEvent, EventCategory } from "../types";
 import { EVENTS_DATA } from "../data/festivalData";
 import { soundFx } from "../utils/audio";
 import { Trophy, Users, Clock, MapPin, ArrowUpRight, Sparkles, Filter } from "lucide-react";
+import { useSectionScrollFade } from "../hooks/useSectionScrollFade";
 
 interface EventShowcaseProps {
   onSelectEvent: (event: TechEvent) => void;
@@ -10,6 +11,7 @@ interface EventShowcaseProps {
 }
 
 export const EventShowcase: React.FC<EventShowcaseProps> = ({ onSelectEvent, onRegisterEvent }) => {
+  const { sectionRef, isVisible } = useSectionScrollFade();
   const [activeCategory, setActiveCategory] = useState<EventCategory>("all");
   const [selectedEventId, setSelectedEventId] = useState<string | null>(null);
 
@@ -27,7 +29,7 @@ export const EventShowcase: React.FC<EventShowcaseProps> = ({ onSelectEvent, onR
     : EVENTS_DATA.filter((e) => e.category === activeCategory);
 
   return (
-    <section id="events" className="relative py-24 sm:py-32 bg-[#0d0e11] border-t border-white/5">
+    <section ref={sectionRef} id="events" className="relative py-24 sm:py-32 bg-[#0d0e11] border-t border-white/5">
       <div
         className="absolute inset-0 bg-cover bg-center opacity-30 pointer-events-none"
         style={{ backgroundImage: "url('/assets/gec10.jpeg')" }}
@@ -36,7 +38,7 @@ export const EventShowcase: React.FC<EventShowcaseProps> = ({ onSelectEvent, onR
       <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-b from-transparent to-[#0e1014] pointer-events-none" />
       <div className="absolute inset-0 bg-grain opacity-25 pointer-events-none" />
       
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className={`section-scroll-fade max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 ${isVisible ? "is-visible" : ""}`}>
         
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">

@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import { SPONSORS_DATA } from "../data/festivalData";
 import { soundFx } from "../utils/audio";
 import { ShieldCheck, Cpu, Server, Wrench, Zap, Flame, Globe, Shield, Radio } from "lucide-react";
+import { useSectionScrollFade } from "../hooks/useSectionScrollFade";
 
 export const SponsorsSection: React.FC = () => {
+  const { sectionRef, isVisible } = useSectionScrollFade();
   const [selectedSponsorIndex, setSelectedSponsorIndex] = useState<number | null>(null);
 
   const getIcon = (iconName: string) => {
@@ -20,7 +22,7 @@ export const SponsorsSection: React.FC = () => {
   };
 
   return (
-    <section id="sponsors" className="relative py-24 sm:py-32 bg-[#0e1014] border-t border-white/5 overflow-hidden">
+    <section ref={sectionRef} id="sponsors" className="relative py-24 sm:py-32 bg-[#0e1014] border-t border-white/5 overflow-hidden">
       <div
         aria-hidden="true"
         className="absolute inset-0 bg-cover bg-center opacity-15 pointer-events-none"
@@ -29,7 +31,7 @@ export const SponsorsSection: React.FC = () => {
       <div className="absolute inset-0 bg-gradient-to-b from-[#0e1014]/80 via-[#0e1014]/90 to-[#0e1014]/85 pointer-events-none" />
       <div className="absolute inset-0 bg-grain opacity-25 pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className={`section-scroll-fade max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 ${isVisible ? "is-visible" : ""}`}>
         
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">

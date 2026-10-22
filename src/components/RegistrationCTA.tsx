@@ -1,19 +1,21 @@
 import React from "react";
 import { soundFx } from "../utils/audio";
 import { Sparkles, Terminal, Shield, ArrowRight } from "lucide-react";
+import { useSectionScrollFade } from "../hooks/useSectionScrollFade";
 
 interface RegistrationCTAProps {
   onOpenRegister: () => void;
 }
 
 export const RegistrationCTA: React.FC<RegistrationCTAProps> = ({ onOpenRegister }) => {
+  const { sectionRef, isVisible } = useSectionScrollFade();
   return (
-    <section className="relative py-24 sm:py-32 bg-[#0d0e11] border-t border-white/5 overflow-hidden">
+    <section ref={sectionRef} className="relative py-24 sm:py-32 bg-[#0d0e11] border-t border-white/5 overflow-hidden">
       {/* Background glowing sunset gradients */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[350px] bg-sunset/15 rounded-full blur-[140px] pointer-events-none" />
       <div className="absolute inset-0 bg-grain opacity-35 pointer-events-none" />
 
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className={`section-scroll-fade max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 ${isVisible ? "is-visible" : ""}`}>
         
         {/* Main Banner Box with Signature Diagonal Slashes */}
         <div className="relative p-8 sm:p-14 lg:p-16 rounded-sm bg-[#171717] border border-sunset/30 shadow-[0_20px_60px_-15px_rgba(255,100,46,0.3)] clip-diagonal-card overflow-hidden text-center">

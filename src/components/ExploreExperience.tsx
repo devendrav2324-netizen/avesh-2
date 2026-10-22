@@ -1,8 +1,11 @@
 import React, { useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import { soundFx } from "../utils/audio";
 import { Compass, Sparkles, Terminal, Flame, Zap, Award } from "lucide-react";
+import { useSectionScrollFade } from "../hooks/useSectionScrollFade";
 
 export const ExploreExperience: React.FC = () => {
+  const { sectionRef, isVisible } = useSectionScrollFade();
   const [activeStep, setActiveStep] = useState(0);
 
   const chapters = [
@@ -71,7 +74,7 @@ export const ExploreExperience: React.FC = () => {
   const current = chapters[activeStep];
 
   return (
-    <section id="explore" className="relative py-24 sm:py-32 bg-[#0e1014] border-t border-white/5 overflow-hidden">
+    <section ref={sectionRef} id="explore" className="relative py-24 sm:py-32 bg-[#0e1014] border-t border-white/5 overflow-hidden">
       <div
         aria-hidden="true"
         className="absolute inset-0 bg-cover bg-center opacity-20 pointer-events-none"
@@ -80,7 +83,7 @@ export const ExploreExperience: React.FC = () => {
       <div className="absolute inset-0 bg-gradient-to-b from-[#0e1014]/80 via-[#0e1014]/90 to-[#0e1014]/85 pointer-events-none" />
       <div className="absolute inset-0 bg-grain opacity-25 pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className={`section-scroll-fade max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 ${isVisible ? "is-visible" : ""}`}>
         
         {/* Section Header */}
         <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-16 gap-6">
@@ -126,7 +129,17 @@ export const ExploreExperience: React.FC = () => {
         </div>
 
         {/* Big Editorial Feature Canvas */}
-        <div className={`relative p-8 sm:p-12 lg:p-16 rounded-sm border border-white/10 ${current.bgGradient} transition-all duration-700 clip-diagonal-card overflow-hidden shadow-2xl`}>
+        <div className="grid">
+          <AnimatePresence initial={false} mode="sync">
+            <motion.div
+              key={current.id}
+              initial={{ opacity: 0, x: 90 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: 90 }}
+              transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+              className="col-start-1 row-start-1 min-w-0"
+            >
+        <div className={`explore-levitate-card relative p-8 sm:p-12 lg:p-16 rounded-sm border border-white/10 ${current.bgGradient} transition-all duration-700 clip-diagonal-card overflow-hidden shadow-2xl`}>
           
           {/* Ambient diagonal glow line */}
           <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-sunset/15 to-transparent pointer-events-none" />
@@ -174,7 +187,7 @@ export const ExploreExperience: React.FC = () => {
 
             {/* Right Abstract Visual Graphic */}
             <div className="lg:col-span-5 flex justify-center">
-              <div className="relative w-full max-w-[340px] aspect-square rounded-sm bg-[#171717] border border-white/10 p-6 flex flex-col justify-between overflow-hidden shadow-xl clip-diagonal-card">
+              <div className="explore-levitate-card explore-levitate-card--inner relative w-full max-w-[340px] aspect-square rounded-sm bg-[#171717] border border-white/10 p-6 flex flex-col justify-between overflow-hidden shadow-xl clip-diagonal-card transition-all duration-300">
                 
                 {/* Diagonal background mask line */}
                 <div className="absolute inset-0 bg-gradient-to-br from-sunset/20 via-transparent to-black pointer-events-none" />
@@ -205,9 +218,11 @@ export const ExploreExperience: React.FC = () => {
                 </div>
               </div>
             </div>
-
           </div>
         </div>
+                </motion.div>
+              </AnimatePresence>
+            </div>
 
       </div>
     </section>

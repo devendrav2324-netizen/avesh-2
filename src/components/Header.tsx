@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { soundFx } from "../utils/audio";
-import { Volume2, VolumeX, Menu, X } from "lucide-react";
+import { Volume2, VolumeX, Menu, X, House, Info, Trophy, Compass, CalendarDays, Handshake, Mail } from "lucide-react";
 
 interface HeaderProps {
   onOpenRegister: () => void;
@@ -10,13 +10,23 @@ export const Header: React.FC<HeaderProps> = ({ onOpenRegister }) => {
   const [scrolled, setScrolled] = useState(false);
   const [audioActive, setAudioActive] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState<string | null>(null);
+
+  const navLinks = [
+    { label: "HOME", href: "#hero", icon: House, code: "01" },
+    { label: "ABOUT", href: "#about", icon: Info, code: "02" },
+    { label: "EVENTS", href: "#events", icon: Trophy, code: "03" },
+    { label: "EXPERIENCE", href: "#explore", icon: Compass, code: "04" },
+    { label: "SCHEDULE", href: "#schedule", icon: CalendarDays, code: "05" },
+    { label: "SPONSORS", href: "#sponsors", icon: Handshake, code: "06" },
+    { label: "CONTACT", href: "#footer", icon: Mail, code: "07" },
+  ];
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 40);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    const updateScrolledState = () => setScrolled(window.scrollY > 40);
+    updateScrolledState();
+    window.addEventListener("scroll", updateScrolledState, { passive: true });
+    return () => window.removeEventListener("scroll", updateScrolledState);
   }, []);
 
   const toggleSound = () => {
@@ -24,23 +34,18 @@ export const Header: React.FC<HeaderProps> = ({ onOpenRegister }) => {
     setAudioActive(newState);
   };
 
-  const navLinks = [
-    { label: "HOME", href: "#hero" },
-    { label: "ABOUT", href: "#about" },
-    { label: "EVENTS", href: "#events" },
-    { label: "EXPERIENCE", href: "#explore" },
-    { label: "SCHEDULE", href: "#schedule" },
-    { label: "SPONSORS", href: "#sponsors" },
-    { label: "CONTACT", href: "#footer" },
-  ];
+  const handleSectionClick = (href: string) => {
+    setActiveSection(href);
+    soundFx.playClick();
+  };
 
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        className={`header-mirror fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           scrolled
-            ? "bg-[#0d0e11]/95 backdrop-blur-md py-2.5 border-b border-white/10 shadow-2xl"
-            : "bg-[#0d0e11]/85 backdrop-blur-sm py-3 sm:py-3.5 border-b border-white/10 shadow-lg"
+            ? "py-2.5 shadow-2xl"
+            : "py-3 sm:py-3.5 shadow-lg"
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -50,7 +55,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenRegister }) => {
             {/* Logo Brand on Left */}
             <a
               href="#hero"
-              onClick={() => soundFx.playClick()}
+              onClick={() => handleSectionClick("#hero")}
               className="group flex items-center gap-3.5"
             >
               {/* Geometric A Icon */}
@@ -134,20 +139,21 @@ export const Header: React.FC<HeaderProps> = ({ onOpenRegister }) => {
           </div>
 
           {/* Dedicated Navigation Bar: Down the Header Line (Avesh 2026) */}
-          <nav className="hidden lg:flex items-center justify-center gap-8 xl:gap-10 pt-2.5 border-t border-white/10">
-            {navLinks.map((link) => (
+          <nav aria-label="Main navigation" className="header-mirror-nav hidden lg:flex items-stretch justify-between gap-1 pt-2">
+            {navLinks.map(({ label, href, icon: Icon, code }) => (
               <a
-                key={link.label}
-                href={link.href}
-                onMouseEnter={() => soundFx.playHover()}
-                onClick={() => soundFx.playClick()}
-                className="relative font-mono text-xs tracking-[0.22em] text-silver-300 hover:text-white transition-colors duration-200 py-1 group flex items-center gap-1.5"
+                key={label}
+                href={href}
+                aria-current={activeSection === href ? "location" : undefined}
+                onClick={() => handleSectionClick(href)}
+                className={`gaming-nav-link group ${activeSection === href ? "is-active" : ""}`}
               >
-                <span className="text-[10px] text-sunset/50 group-hover:text-sunset transition-colors font-mono">
-                  /
+                <span className="gaming-nav-code">{code}</span>
+                <Icon className="gaming-nav-icon" aria-hidden="true" />
+                <span className="gaming-nav-label">
+                  {label}
                 </span>
-                <span>{link.label}</span>
-                <span className="absolute bottom-0 left-0 w-full h-[1.5px] bg-sunset scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
+                <span className="gaming-nav-indicator" />
               </a>
             ))}
           </nav>
@@ -167,7 +173,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenRegister }) => {
                 key={link.label}
                 href={link.href}
                 onClick={() => {
-                  soundFx.playClick();
+                  handleSectionClick(link.href);
                   setMobileMenuOpen(false);
                 }}
                 className="font-display font-bold text-2xl text-silver-200 hover:text-sunset transition-colors"

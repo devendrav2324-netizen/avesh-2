@@ -77,6 +77,7 @@ export default {
         sm: "calc(var(--radius) - 4px)",
       },
       fontFamily: {
+        brand: ['Teko', 'system-ui', 'sans-serif'],
         display: ['Syne', 'system-ui', 'sans-serif'],
         mono: ['"Space Mono"', 'monospace'],
         sans: ['Inter', 'system-ui', 'sans-serif'],

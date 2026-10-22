@@ -2,18 +2,20 @@ import React from "react";
 import { soundFx } from "../utils/audio";
 import { FEST_METRICS } from "../data/festivalData";
 import { MapPin, Mail, Phone, ArrowUp, ExternalLink } from "lucide-react";
+import { useSectionScrollFade } from "../hooks/useSectionScrollFade";
 
 export const Footer: React.FC = () => {
+  const { sectionRef, isVisible } = useSectionScrollFade();
   const scrollToTop = () => {
     soundFx.playClick();
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (
-    <footer id="footer" className="relative bg-[#08090b] text-silver-400 border-t border-white/10 pt-16 pb-12 overflow-hidden">
+    <footer ref={sectionRef} id="footer" className="relative bg-[#08090b] text-silver-400 border-t border-white/10 pt-16 pb-12 overflow-hidden">
       <div className="absolute inset-0 bg-grain opacity-20 pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className={`section-scroll-fade max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 ${isVisible ? "is-visible" : ""}`}>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8 pb-12 border-b border-white/10">
           

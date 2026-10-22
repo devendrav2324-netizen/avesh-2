@@ -1,16 +1,17 @@
-import React, { useState, useEffect } from "react";
-import { DiagonalArtwork } from "./DiagonalArtwork";
+import React, { useEffect, useState } from "react";
+import { Calendar, ArrowRight } from "lucide-react";
 import { soundFx } from "../utils/audio";
-import { FEST_METRICS } from "../data/festivalData";
-import { ArrowDown, Calendar, MapPin, Trophy, ShieldCheck, Terminal, ExternalLink } from "lucide-react";
+import { HalftoneWordmarkFooter } from "./ui/halftone-wordmark-footer";
+import { useSectionScrollFade } from "../hooks/useSectionScrollFade";
 
 interface HeroSectionProps {
   onOpenRegister: () => void;
 }
 
+const FEST_START = new Date("2026-10-27T09:00:00+05:30").getTime();
+
 export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenRegister }) => {
-  // Target date: October 27, 2026, 09:00 AM IST (27/10/26)
-  const targetTime = new Date("2026-10-27T09:00:00+05:30").getTime();
+  const { sectionRef, isVisible } = useSectionScrollFade();
   const [timeLeft, setTimeLeft] = useState({
     days: 0,
     hours: 0,
@@ -20,234 +21,115 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenRegister }) => {
 
   useEffect(() => {
     const updateCountdown = () => {
-      const now = new Date().getTime();
-      const difference = targetTime - now;
-
-      if (difference > 0) {
-        setTimeLeft({
-          days: Math.floor(difference / (1000 * 60 * 60 * 24)),
-          hours: Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
-          minutes: Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60)),
-          seconds: Math.floor((difference % (1000 * 60)) / 1000),
-        });
-      }
+      const difference = Math.max(0, FEST_START - Date.now());
+      setTimeLeft({
+        days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+        hours: Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
+        minutes: Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60)),
+        seconds: Math.floor((difference % (1000 * 60)) / 1000),
+      });
     };
 
     updateCountdown();
-    const interval = setInterval(updateCountdown, 1000);
-    return () => clearInterval(interval);
-  }, [targetTime]);
+    const interval = window.setInterval(updateCountdown, 1000);
+    return () => window.clearInterval(interval);
+  }, []);
+
+  const countdownUnits = [
+    { label: "DAYS", value: timeLeft.days },
+    { label: "HOURS", value: timeLeft.hours },
+    { label: "MINS", value: timeLeft.minutes },
+    { label: "SECS", value: timeLeft.seconds },
+  ];
 
   return (
-    <section 
+    <section
+      ref={sectionRef}
       id="hero"
-      className="relative min-h-[100svh] w-full bg-[#0d0e11] overflow-hidden flex flex-col justify-between pt-28 pb-12 sm:pt-36 sm:pb-16 lg:pt-36"
+      className="relative flex min-h-[100svh] w-full items-center justify-center overflow-hidden bg-[#0d0e11] px-4 pb-12 pt-32 sm:px-6 sm:pb-16 sm:pt-36"
     >
-      {/* Background ambient lighting & subtle geometric architectural grid */}
-      <div className="absolute inset-0 bg-dark-radial pointer-events-none opacity-80" />
-      <div className="absolute -top-32 right-1/4 w-96 h-96 bg-sunset/10 rounded-full blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-10 left-10 w-80 h-80 bg-amber/5 rounded-full blur-[100px] pointer-events-none" />
-      <div className="absolute inset-0 bg-grain opacity-40 pointer-events-none" />
-
-      {/* Main Hero Container */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full flex-1 flex flex-col justify-center">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-          
-          {/* ========================================================= */}
-          {/* LEFT COLUMN: HERO EDITORIAL INFORMATION */}
-          {/* ========================================================= */}
-          <div className="lg:col-span-6 xl:col-span-5 flex flex-col justify-center order-2 lg:order-1">
-            
-            {/* Institution Badge */}
-            <div className="inline-flex items-center gap-2.5 px-3 py-1.5 rounded-sm bg-white/5 border border-white/10 w-fit mb-4">
-              <span className="w-2 h-2 rounded-full bg-sunset animate-ping" />
-              <span className="font-mono text-xs tracking-[0.25em] text-silver-300 uppercase font-semibold">
-                CGIT RAIPUR
-              </span>
-              <span className="text-white/20">•</span>
-              <span className="font-mono text-[10px] tracking-widest text-sunset uppercase">
-                ANNUAL TECH FEST
-              </span>
-            </div>
-
-            {/* Massive Display Title */}
-            <div className="relative mb-3">
-              <h1 className="font-display font-black text-5xl sm:text-6xl md:text-7xl xl:text-8xl tracking-tight text-white uppercase leading-[0.9]">
-                AVESH
-                <span
-                  role="text"
-                  aria-label="2026"
-                  className="hero-year-window mt-1 block h-[1em] overflow-hidden text-4xl font-extrabold tracking-tighter text-sunset sm:text-5xl md:text-6xl xl:text-7xl"
-                >
-                  <span aria-hidden="true" className="hero-year-track block">
-                    <span className="block h-[1em] leading-none">2026</span>
-                    <span className="block h-[1em] leading-none text-white">2026</span>
-                    <span className="block h-[1em] leading-none text-sunset">2026</span>
-                  </span>
-                </span>
-              </h1>
-              
-              {/* Subtle background ghost typography */}
-              <span 
-                className="absolute -top-6 -left-4 text-7xl sm:text-9xl font-display font-black text-stroke-silver opacity-10 pointer-events-none -z-10 select-none"
-                aria-hidden="true"
-              >
-                AVESH
-              </span>
-            </div>
-
-            {/* Poster Motto */}
-            <div className="my-4 w-fit overflow-hidden border-l-2 border-sunset py-0.5 pl-4">
-              <div className="hero-motto-reveal space-y-3">
-                <div>
-                  <p className="font-mono text-sm sm:text-base font-bold tracking-[0.22em] text-silver-200 uppercase">
-                    {FEST_METRICS.motto.primary.split(",")[0]}
-                  </p>
-                  <p className="font-mono text-sm sm:text-base font-bold tracking-[0.22em] text-sunset uppercase">
-                    {FEST_METRICS.motto.primary.split(",")[1]?.trim() || "THE MORE YOU CAN"}
-                  </p>
-                </div>
-
-                <div className="space-y-3 pt-1">
-                  <h2 className="font-display font-bold text-base sm:text-lg text-white tracking-wide">
-                    AVESH 2026 – Annual Technical Fest
-                  </h2>
-                  
-                  <p className="font-sans text-xs sm:text-sm text-silver-300 leading-relaxed">
-                    <strong className="text-white font-semibold">AVESH</strong> is the annual technical fest of Chhattisgarh Institute of Technology (CIT), Raipur, Chhattisgarh, one of the region’s long-established and prestigious engineering institutions. The fest brings together students from diverse backgrounds to celebrate innovation, creativity, technical excellence, and cultural expression.
-                  </p>
-
-                  <p className="font-sans text-xs sm:text-sm text-silver-400 leading-relaxed">
-                    The event features a wide range of activities, including hackathons, Robo Soccer, technical competitions, and cultural performances such as dance, singing, and drama. It provides a dynamic platform for students to showcase their talents, exchange ideas, collaborate with peers, and explore new areas of learning.
-                  </p>
-
-                  <p className="font-sans text-xs sm:text-sm text-silver-400 leading-relaxed">
-                    More than just a competition, AVESH is an experience that encourages students to challenge themselves, develop new skills, build meaningful connections, and learn through teamwork and healthy competition. It fosters a spirit of innovation, collaboration, and personal growth while creating lasting memories and strengthening the student community.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* Live Countdown Timer */}
-            <div className="my-5 p-3.5 sm:p-4 rounded-sm bg-[#171717]/80 border border-white/10 backdrop-blur-sm">
-              <div className="flex items-center justify-between mb-2">
-                <span className="font-mono text-[10px] tracking-[0.25em] text-silver-400 uppercase flex items-center gap-1.5">
-                  <Calendar className="w-3.5 h-3.5 text-sunset" />
-                  KICKOFF IN:
-                </span>
-                <span className="font-mono text-[10px] tracking-wider text-sunset">
-                  27/10/26 – 30/10/26
-                </span>
-              </div>
-              <div className="grid grid-cols-4 gap-2 text-center">
-                <div className="p-2 bg-[#0e1014] rounded-sm border border-white/5">
-                  <span className="block font-mono font-bold text-xl sm:text-2xl text-white">
-                    {String(timeLeft.days).padStart(2, "0")}
-                  </span>
-                  <span className="block font-mono text-[9px] tracking-widest text-silver-500 uppercase mt-0.5">
-                    DAYS
-                  </span>
-                </div>
-                <div className="p-2 bg-[#0e1014] rounded-sm border border-white/5">
-                  <span className="block font-mono font-bold text-xl sm:text-2xl text-white">
-                    {String(timeLeft.hours).padStart(2, "0")}
-                  </span>
-                  <span className="block font-mono text-[9px] tracking-widest text-silver-500 uppercase mt-0.5">
-                    HOURS
-                  </span>
-                </div>
-                <div className="p-2 bg-[#0e1014] rounded-sm border border-white/5">
-                  <span className="block font-mono font-bold text-xl sm:text-2xl text-white">
-                    {String(timeLeft.minutes).padStart(2, "0")}
-                  </span>
-                  <span className="block font-mono text-[9px] tracking-widest text-silver-500 uppercase mt-0.5">
-                    MINS
-                  </span>
-                </div>
-                <div className="p-2 bg-[#0e1014] rounded-sm border border-white/5">
-                  <span className="block font-mono font-bold text-xl sm:text-2xl text-sunset">
-                    {String(timeLeft.seconds).padStart(2, "0")}
-                  </span>
-                  <span className="block font-mono text-[9px] tracking-widest text-silver-500 uppercase mt-0.5">
-                    SECS
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            {/* CTAs */}
-            <div className="flex flex-wrap items-center gap-4 mt-2">
-              <a
-                href="#events"
-                onClick={() => soundFx.playClick()}
-                className="group relative px-7 py-3.5 bg-sunset hover:bg-sunset-hover text-white font-mono text-xs font-bold tracking-[0.2em] rounded-sm clip-diagonal-btn shadow-[0_0_30px_rgba(255,100,46,0.45)] transition-all flex items-center gap-2"
-              >
-                <span>EXPLORE EVENTS</span>
-                <span className="group-hover:translate-x-1 transition-transform">→</span>
-              </a>
-
-              <button
-                onClick={() => {
-                  soundFx.playClick();
-                  onOpenRegister();
-                }}
-                className="px-6 py-3.5 bg-transparent hover:bg-white/5 text-silver-200 hover:text-white border border-white/20 hover:border-sunset/70 font-mono text-xs font-bold tracking-[0.2em] rounded-sm clip-diagonal-btn-rev transition-all flex items-center gap-2"
-              >
-                <Terminal className="w-3.5 h-3.5 text-sunset" />
-                <span>REGISTER NOW</span>
-              </button>
-            </div>
-
-            {/* Geo & Metrics Footer Metadata */}
-            <div className="flex flex-wrap items-center gap-4 text-silver-500 font-mono text-[10px] tracking-wider mt-6 pt-4 border-t border-white/5">
-              <a
-                href={FEST_METRICS.mapsUrl}
-                target="_blank"
-                rel="noreferrer"
-                className="flex items-center gap-1.5 text-silver-400 hover:text-sunset transition-colors group cursor-pointer"
-                title="Open CGIT Raipur on Google Maps"
-              >
-                <MapPin className="w-3 h-3 text-sunset group-hover:scale-110 transition-transform" />
-                <span className="underline decoration-dotted decoration-sunset/50 group-hover:decoration-sunset underline-offset-2">
-                  CGIT RAIPUR (GOOGLE MAPS)
-                </span>
-                <ExternalLink className="w-2.5 h-2.5 opacity-60 group-hover:opacity-100" />
-              </a>
-              <span>•</span>
-              <span className="flex items-center gap-1">
-                <Trophy className="w-3 h-3 text-amber" />
-                {FEST_METRICS.totalPrizePool} POOL
-              </span>
-              <span>•</span>
-              <span className="flex items-center gap-1">
-                <ShieldCheck className="w-3 h-3 text-silver-400" />
-                {FEST_METRICS.eventsCount} EVENTS
-              </span>
-            </div>
-          </div>
-
-          {/* ========================================================= */}
-          {/* RIGHT COLUMN: CENTRAL DIAGONAL POSTER ARTWORK */}
-          {/* ========================================================= */}
-          <div className="lg:col-span-6 xl:col-span-7 flex justify-center items-center order-1 lg:order-2 py-4">
-            <DiagonalArtwork />
-          </div>
-
-        </div>
+      <div aria-hidden="true" className="hero-tech-background pointer-events-none absolute inset-0">
+        <svg
+          className="hero-tech-circuit absolute inset-0 h-full w-full"
+          viewBox="0 0 1440 900"
+          preserveAspectRatio="xMidYMid slice"
+          fill="none"
+        >
+          <g className="hero-circuit-lines" stroke="currentColor" strokeWidth="1.5">
+            <path d="M0 202h108l46 46h152l38 38h102" />
+            <path d="M0 246h88l55 55h115l44 44h126" />
+            <path d="M0 674h96l54-54h122l44-44h128" />
+            <path d="M0 718h126l46-46h118l52-52h102" />
+            <path d="M1440 202h-108l-46 46h-152l-38 38h-102" />
+            <path d="M1440 246h-88l-55 55h-115l-44 44h-126" />
+            <path d="M1440 674h-96l-54-54h-122l-44-44h-128" />
+            <path d="M1440 718h-126l-46-46h-118l-52-52h-102" />
+            <path d="M720 0v94l-38 38v72" />
+            <path d="M720 900v-94l38-38v-72" />
+          </g>
+          <g className="hero-circuit-nodes" fill="currentColor">
+            <circle cx="108" cy="202" r="4" />
+            <circle cx="389" cy="334" r="4" />
+            <circle cx="96" cy="674" r="4" />
+            <circle cx="394" cy="618" r="4" />
+            <circle cx="1332" cy="202" r="4" />
+            <circle cx="1051" cy="334" r="4" />
+            <circle cx="1344" cy="674" r="4" />
+            <circle cx="1046" cy="618" r="4" />
+            <circle cx="720" cy="94" r="4" />
+            <circle cx="720" cy="806" r="4" />
+          </g>
+          <g className="hero-tech-orbits" stroke="currentColor">
+            <circle cx="720" cy="450" r="292" strokeDasharray="2 12" />
+            <circle cx="720" cy="450" r="326" strokeDasharray="68 190" />
+          </g>
+        </svg>
+        <div className="hero-tech-core absolute left-1/2 top-1/2" />
+        <div className="hero-tech-grain absolute inset-0" />
       </div>
 
-      {/* Bottom Scroll Indicator */}
-      <div className="relative z-10 flex justify-center items-center mt-6">
-        <a
-          href="#about"
-          onClick={() => soundFx.playClick()}
-          className="flex flex-col items-center gap-1.5 text-silver-500 hover:text-sunset transition-colors group"
+      <div className={`section-scroll-fade relative z-10 mx-auto flex w-full max-w-5xl flex-col items-center text-center ${isVisible ? "is-visible" : ""}`}>
+        <p className="mb-5 font-mono text-[10px] font-semibold uppercase tracking-[0.3em] text-silver-300 sm:text-xs">
+          CGIT RAIPUR <span className="mx-2 text-sunset">/</span> ANNUAL TECH &amp; CULTURE FEST
+        </p>
+
+        <HalftoneWordmarkFooter />
+
+        <p className="mt-6 max-w-2xl text-sm leading-relaxed text-silver-300 sm:mt-8 sm:text-base">
+          Four days of bold ideas, hands-on technology, fierce competition, and
+          unforgettable performances—bringing the student community together
+          at CGIT Raipur.
+        </p>
+
+        <div className="mt-8 w-full max-w-xl border-y border-white/10 py-5 sm:mt-10">
+          <p className="mb-4 flex items-center justify-center gap-2 font-mono text-[10px] font-bold uppercase tracking-[0.25em] text-sunset sm:text-xs">
+            <Calendar className="h-3.5 w-3.5" />
+            27 — 30 October 2026
+          </p>
+          <div className="grid grid-cols-4 gap-2 sm:gap-6">
+            {countdownUnits.map(({ label, value }) => (
+              <div key={label}>
+                <span className="block font-mono text-2xl font-bold tabular-nums text-white sm:text-3xl">
+                  {String(value).padStart(2, "0")}
+                </span>
+                <span className="mt-1 block font-mono text-[9px] tracking-[0.2em] text-silver-500">
+                  {label}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <button
+          onClick={() => {
+            soundFx.playClick();
+            onOpenRegister();
+          }}
+          className="mt-8 inline-flex items-center gap-3 bg-sunset px-7 py-3.5 font-mono text-xs font-bold tracking-[0.2em] text-white shadow-[0_0_30px_rgba(255,100,46,0.35)] transition-colors hover:bg-sunset-hover sm:mt-10"
         >
-          <span className="font-mono text-[9px] tracking-[0.3em] uppercase">
-            SCROLL TO EXPLORE
-          </span>
-          <ArrowDown className="w-4 h-4 animate-bounce text-sunset" />
-        </a>
+          REGISTER NOW
+          <ArrowRight className="h-4 w-4" />
+        </button>
       </div>
     </section>
   );
