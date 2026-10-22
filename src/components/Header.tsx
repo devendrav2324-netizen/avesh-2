@@ -1,32 +1,93 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { soundFx } from "../utils/audio";
-import { Volume2, VolumeX, Menu, X, House, Info, Trophy, Compass, CalendarDays, Handshake, Mail } from "lucide-react";
+import { Volume2, VolumeX, Menu, X } from "lucide-react";
 
 interface HeaderProps {
   onOpenRegister: () => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({ onOpenRegister }) => {
-  const [scrolled, setScrolled] = useState(false);
+  const [navHidden, setNavHidden] = useState(false);
   const [audioActive, setAudioActive] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState<string | null>(null);
+  const headerRef = useRef<HTMLElement>(null);
+  const navHiddenRef = useRef(false);
 
   const navLinks = [
-    { label: "HOME", href: "#hero", icon: House, code: "01" },
-    { label: "ABOUT", href: "#about", icon: Info, code: "02" },
-    { label: "EVENTS", href: "#events", icon: Trophy, code: "03" },
-    { label: "EXPERIENCE", href: "#explore", icon: Compass, code: "04" },
-    { label: "SCHEDULE", href: "#schedule", icon: CalendarDays, code: "05" },
-    { label: "SPONSORS", href: "#sponsors", icon: Handshake, code: "06" },
-    { label: "CONTACT", href: "#footer", icon: Mail, code: "07" },
+    { label: "HOME", href: "#hero" },
+    { label: "ABOUT", href: "#about" },
+    { label: "EVENTS", href: "#events" },
+    { label: "EXPERIENCE", href: "#explore" },
+    { label: "SCHEDULE", href: "#schedule" },
+    { label: "SPONSORS", href: "#sponsors" },
+    { label: "CONTACT", href: "#footer" },
   ];
 
   useEffect(() => {
-    const updateScrolledState = () => setScrolled(window.scrollY > 40);
-    updateScrolledState();
-    window.addEventListener("scroll", updateScrolledState, { passive: true });
-    return () => window.removeEventListener("scroll", updateScrolledState);
+    const scrollThreshold = 16;
+    const topVisibilityThreshold = 40;
+    let previousScrollY = Math.max(window.scrollY, 0);
+    let downwardDistance = 0;
+    let headerOffset = 0;
+    let animationFrame = 0;
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+    const setHidden = (hidden: boolean) => {
+      if (navHiddenRef.current === hidden) return;
+      navHiddenRef.current = hidden;
+      setNavHidden(hidden);
+    };
+
+    const applyHeaderOffset = () => {
+      const header = headerRef.current;
+      if (!header) return;
+
+      const headerHeight = header.offsetHeight;
+      headerOffset = Math.min(Math.max(headerOffset, 0), headerHeight);
+      const progress = headerHeight ? headerOffset / headerHeight : 0;
+      header.style.setProperty("--header-offset", `${headerOffset}px`);
+      header.style.setProperty("--header-opacity", `${1 - progress}`);
+      setHidden(progress >= 1);
+    };
+
+    const updateNavigationVisibility = () => {
+      animationFrame = 0;
+      const currentScrollY = Math.max(window.scrollY, 0);
+      const scrollDelta = currentScrollY - previousScrollY;
+      previousScrollY = currentScrollY;
+
+      if (reducedMotion.matches || currentScrollY <= topVisibilityThreshold) {
+        downwardDistance = 0;
+        headerOffset = 0;
+        applyHeaderOffset();
+        setHidden(false);
+        return;
+      }
+
+      if (scrollDelta < 0) {
+        downwardDistance = 0;
+        headerOffset += scrollDelta;
+      }
+
+      if (scrollDelta > 0) {
+        downwardDistance += scrollDelta;
+        if (downwardDistance >= scrollThreshold) headerOffset += scrollDelta;
+      }
+
+      applyHeaderOffset();
+    };
+
+    const scheduleNavigationUpdate = () => {
+      if (animationFrame) return;
+      animationFrame = window.requestAnimationFrame(updateNavigationVisibility);
+    };
+
+    window.addEventListener("scroll", scheduleNavigationUpdate, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", scheduleNavigationUpdate);
+      if (animationFrame) window.cancelAnimationFrame(animationFrame);
+    };
   }, []);
 
   const toggleSound = () => {
@@ -42,10 +103,11 @@ export const Header: React.FC<HeaderProps> = ({ onOpenRegister }) => {
   return (
     <>
       <header
-        className={`header-mirror fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          scrolled
-            ? "py-2.5"
-            : "py-3 sm:py-3.5"
+        ref={headerRef}
+        aria-hidden={navHidden}
+        inert={navHidden}
+        className={`header-mirror fixed top-0 left-0 right-0 z-50 py-3 sm:py-3.5 ${
+          navHidden ? "is-hidden" : ""
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -136,24 +198,24 @@ export const Header: React.FC<HeaderProps> = ({ onOpenRegister }) => {
             </div>
           </div>
 
-          {/* Dedicated Navigation Bar: Down the Header Line (Avesh 2026) */}
-          <nav aria-label="Main navigation" className="header-mirror-nav hidden lg:flex items-stretch justify-between gap-1 pt-2">
-            {navLinks.map(({ label, href, icon: Icon, code }) => (
-              <a
-                key={label}
-                href={href}
-                aria-current={activeSection === href ? "location" : undefined}
-                onClick={() => handleSectionClick(href)}
-                className={`gaming-nav-link group ${activeSection === href ? "is-active" : ""}`}
-              >
-                <span className="gaming-nav-code">{code}</span>
-                <Icon className="gaming-nav-icon" aria-hidden="true" />
-                <span className="gaming-nav-label">
+          <nav
+            aria-label="Main navigation"
+            className="header-mirror-nav hidden lg:flex"
+          >
+            <div className="plain-nav-links">
+              {navLinks.map(({ label, href }) => (
+                <a
+                  key={label}
+                  href={href}
+                  aria-current={activeSection === href ? "location" : undefined}
+                  onClick={() => handleSectionClick(href)}
+                  className={`plain-nav-link ${activeSection === href ? "is-active" : ""}`}
+                >
                   {label}
-                </span>
-                <span className="gaming-nav-indicator" />
-              </a>
-            ))}
+                  <span className="plain-nav-underline" aria-hidden="true" />
+                </a>
+              ))}
+            </div>
           </nav>
 
         </div>

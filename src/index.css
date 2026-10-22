@@ -133,6 +133,13 @@ footer::before {
 
 .header-mirror {
   background: transparent;
+  opacity: var(--header-opacity, 1);
+  transform: translate3d(0, calc(-1 * var(--header-offset, 0px)), 0);
+  will-change: transform, opacity;
+}
+
+.header-mirror.is-hidden {
+  pointer-events: none;
 }
 
 .header-brand-logo {
@@ -154,121 +161,58 @@ footer::before {
 }
 
 .header-mirror-nav {
-  position: relative;
-  isolation: isolate;
-  overflow: hidden;
-  border-radius: 2px;
-  background:
-    linear-gradient(105deg, rgba(255, 255, 255, 0.055), transparent 36%, rgba(255, 100, 46, 0.055)),
-    rgba(255, 255, 255, 0.018);
-  box-shadow:
-    inset 0 -10px 24px rgba(255, 100, 46, 0.025);
+  align-items: center;
+  flex-direction: column;
+  gap: 0.4rem;
+  background: transparent;
 }
 
-.header-mirror-nav::before {
-  position: absolute;
-  z-index: -1;
-  inset: 0;
-  background: radial-gradient(ellipse at 50% 0%, rgba(255, 255, 255, 0.055), transparent 72%);
-  content: "";
-  pointer-events: none;
+.plain-nav-links {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
 }
 
-.gaming-nav-link {
+.plain-nav-link {
   position: relative;
   display: flex;
-  min-width: 0;
-  flex: 1 1 0;
   align-items: center;
   justify-content: center;
-  gap: 0.45rem;
-  overflow: hidden;
-  padding: 0.65rem 0.35rem 0.7rem;
+  padding: 0.65rem 0.2rem 0.8rem;
   color: rgba(216, 220, 227, 0.72);
-  font-family: "Oxanium", system-ui, sans-serif;
-  font-size: 0.69rem;
+  font-family: "Syne", system-ui, sans-serif;
+  font-size: 0.82rem;
   font-weight: 700;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.1em;
   text-decoration: none;
-  transition: color 180ms ease, background-color 180ms ease, filter 180ms ease;
-  clip-path: polygon(8px 0, 100% 0, calc(100% - 8px) 100%, 0 100%);
+  transition: color 180ms ease;
 }
 
-.gaming-nav-link::before {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.055), transparent 46%, rgba(255, 100, 46, 0.06));
-  content: "";
-  opacity: 0;
-  transition: opacity 180ms ease;
-}
-
-.gaming-nav-link:focus-visible {
+.plain-nav-link:hover,
+.plain-nav-link:focus-visible,
+.plain-nav-link.is-active {
   color: #fff;
   outline: none;
-  box-shadow: inset 0 0 0 1px rgba(255, 100, 46, 0.6);
 }
 
-.gaming-nav-link:focus-visible::before,
-.gaming-nav-link.is-active::before {
-  opacity: 1;
-}
-
-.gaming-nav-link.is-active {
-  color: #fff;
-  background: linear-gradient(105deg, rgba(255, 100, 46, 0.24), rgba(255, 100, 46, 0.08) 65%, rgba(255, 100, 46, 0.16));
-  filter: drop-shadow(0 0 8px rgba(255, 100, 46, 0.12));
-}
-
-.gaming-nav-code,
-.gaming-nav-icon,
-.gaming-nav-label,
-.gaming-nav-indicator {
-  position: relative;
-  z-index: 1;
-}
-
-.gaming-nav-code {
-  color: rgba(255, 100, 46, 0.55);
-  font-family: ui-monospace, monospace;
-  font-size: 0.55rem;
-  letter-spacing: 0.04em;
-}
-
-.gaming-nav-icon {
-  width: 0.85rem;
-  height: 0.85rem;
-  flex: none;
-  color: rgba(255, 100, 46, 0.75);
-  transition: color 180ms ease, filter 180ms ease;
-}
-
-.gaming-nav-link.is-active .gaming-nav-icon {
-  color: #ff7040;
-  filter: drop-shadow(0 0 5px rgba(255, 100, 46, 0.7));
-}
-
-.gaming-nav-label {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.gaming-nav-indicator {
+.plain-nav-underline {
   position: absolute;
-  right: 20%;
-  bottom: 0.22rem;
-  left: 20%;
+  right: 0;
+  bottom: 0.35rem;
+  left: 0;
   height: 2px;
-  background: linear-gradient(90deg, transparent, #ff642e 20%, #ffb078 50%, #ff642e 80%, transparent);
-  box-shadow: 0 0 8px rgba(255, 100, 46, 0.72);
+  background: linear-gradient(90deg, #ff642e, #ffb078);
+  box-shadow: 0 0 9px rgba(255, 100, 46, 0.65);
   opacity: 0;
   transform: scaleX(0.35);
   transition: opacity 180ms ease, transform 180ms ease;
 }
 
-.gaming-nav-link:focus-visible .gaming-nav-indicator,
-.gaming-nav-link.is-active .gaming-nav-indicator {
+.plain-nav-link:hover .plain-nav-underline,
+.plain-nav-link:focus-visible .plain-nav-underline,
+.plain-nav-link.is-active .plain-nav-underline {
   opacity: 1;
   transform: scaleX(1);
 }
