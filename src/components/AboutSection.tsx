@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { soundFx } from "../utils/audio";
 import { FEST_METRICS } from "../data/festivalData";
-import { Cpu, Terminal, Flame, Users, Trophy, Building2, Zap, Compass } from "lucide-react";
+import { Cpu, Terminal, Flame, Users, Trophy, Building2, Zap } from "lucide-react";
 import { useSectionScrollFade } from "../hooks/useSectionScrollFade";
 
 export const AboutSection: React.FC = () => {
@@ -85,25 +85,15 @@ export const AboutSection: React.FC = () => {
         {/* Section Header */}
         <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-16 gap-6">
           <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1 bg-white/5 border border-white/10 rounded-sm mb-3">
-              <Compass className="w-3.5 h-3.5 text-sunset" />
-              <span className="font-mono text-xs tracking-[0.25em] text-silver-300 uppercase">
-                SECTION 01 // FEST ARCHITECTURE
-              </span>
-            </div>
-            
             <h2 className="font-display font-extrabold text-3xl sm:text-5xl lg:text-6xl text-white tracking-tight leading-[1.05]">
               WHERE URBAN FUTURISM MEETS <span className="text-sunset">RAW ENGINEERING</span>.
             </h2>
           </div>
 
           <div className="lg:max-w-md">
-            <p className="font-sans text-sm sm:text-base text-silver-400 leading-relaxed mb-3">
+            <p className="about-description-glow font-mono text-xs sm:text-sm tracking-wide text-silver-400 leading-relaxed mb-3">
               AVESH is the annual technical and cultural fest of <strong className="text-silver-200">CGIT Raipur</strong> (formerly known as GEC Raipur): four days where engineering meets expression. Two days of competitions in code, ideas, robotics and structures, a cultural evening on stage, and a closing artist night under the lights.
             </p>
-            <span className="font-mono text-xs text-sunset tracking-wider uppercase block">
-              // FESTIVAL HEAD: DR. SHWETA CHOUBEY
-            </span>
           </div>
         </div>
 

@@ -114,19 +114,12 @@ export const Header: React.FC<HeaderProps> = ({ onOpenRegister }) => {
           
           {/* Top Line: Brand (AVESH 2026) on Left, Action Bar on Right */}
           <div className="flex items-center justify-between pb-2.5">
-            {/* Logo Brand on Left */}
+            {/* Brand Name on Left */}
             <a
               href="#hero"
               onClick={() => handleSectionClick("#hero")}
-              className="group flex items-center gap-2.5 sm:gap-3.5"
+              className="group flex items-center"
             >
-              <img
-                src="/assets/avesh-emblem-transparent.png"
-                alt=""
-                aria-hidden="true"
-                className="header-brand-logo h-10 w-14 object-contain sm:h-11 sm:w-16"
-              />
-
               {/* Title & Institutional Tag */}
               <div className="flex flex-col">
                 <div className="flex items-center gap-2">

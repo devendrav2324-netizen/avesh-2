@@ -43,16 +43,10 @@ export const EventShowcase: React.FC<EventShowcaseProps> = ({ onSelectEvent, onR
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
           <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1 bg-white/5 border border-white/10 rounded-sm mb-3">
-              <Trophy className="w-3.5 h-3.5 text-sunset" />
-              <span className="font-mono text-xs tracking-[0.25em] text-silver-300 uppercase">
-                SECTION 02 // TOURNAMENT ARENA
-              </span>
-            </div>
             <h2 className="font-display font-extrabold text-3xl sm:text-5xl text-white tracking-tight">
               FEATURED <span className="text-sunset">COMPETITIONS</span>.
             </h2>
-            <p className="font-sans text-sm sm:text-base text-silver-400 mt-2 max-w-xl">
+            <p className="about-description-glow font-sans text-sm sm:text-base text-silver-400 mt-2 max-w-xl">
               24+ high-stakes engineering battles, 36-hour hackathons, combat robotics, and cultural stages. Choose your battlefield.
             </p>
           </div>

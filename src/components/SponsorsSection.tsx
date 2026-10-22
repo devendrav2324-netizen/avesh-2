@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { SPONSORS_DATA } from "../data/festivalData";
 import { soundFx } from "../utils/audio";
-import { ShieldCheck, Cpu, Server, Wrench, Zap, Flame, Globe, Shield, Radio } from "lucide-react";
+import { Cpu, Server, Wrench, Zap, Flame, Globe, Shield, Radio } from "lucide-react";
 import { useSectionScrollFade } from "../hooks/useSectionScrollFade";
 
 export const SponsorsSection: React.FC = () => {
@@ -35,12 +35,6 @@ export const SponsorsSection: React.FC = () => {
         
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <div className="inline-flex items-center gap-2 px-3 py-1 bg-white/5 border border-white/10 rounded-sm mb-3">
-            <ShieldCheck className="w-3.5 h-3.5 text-sunset" />
-            <span className="font-mono text-xs tracking-[0.25em] text-silver-300 uppercase">
-              SECTION 05 // ECOSYSTEM PARTNERS
-            </span>
-          </div>
           <h2 className="font-display font-extrabold text-3xl sm:text-5xl text-white tracking-tight">
             POWERED BY <span className="text-sunset">INDUSTRY LEADERS</span>.
           </h2>

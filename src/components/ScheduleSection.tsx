@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { SCHEDULE_DATA } from "../data/festivalData";
-import { Calendar, Clock, MapPin, User, ChevronDown } from "lucide-react";
+import { Clock, MapPin, User, ChevronDown } from "lucide-react";
 import { useSectionScrollFade } from "../hooks/useSectionScrollFade";
 
 const DAYS = [
@@ -56,12 +56,6 @@ export const ScheduleSection: React.FC = () => {
 
         <header className="relative z-10 mx-auto flex w-full max-w-7xl items-end justify-between gap-6 px-4 pb-4 pt-28 sm:px-6 sm:pb-6 sm:pt-32 lg:px-8">
           <div>
-            <div className="mb-2 inline-flex items-center gap-2 border border-white/10 bg-white/5 px-3 py-1">
-              <Calendar className="h-3.5 w-3.5 text-sunset" />
-              <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-silver-300 sm:text-xs">
-                SECTION 04 // TIMELINE
-              </span>
-            </div>
             <h2 className="font-display text-3xl font-extrabold tracking-tight text-white sm:text-5xl">
               EVENT <span className="text-sunset">SCHEDULE</span>.
             </h2>

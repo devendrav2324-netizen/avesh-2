@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { soundFx } from "../utils/audio";
-import { Compass, Sparkles, Terminal, Flame, Zap, Award } from "lucide-react";
+import { Sparkles, Terminal, Flame, Zap, Award } from "lucide-react";
 import { useSectionScrollFade } from "../hooks/useSectionScrollFade";
 
 export const ExploreExperience: React.FC = () => {
@@ -77,27 +77,19 @@ export const ExploreExperience: React.FC = () => {
     <section ref={sectionRef} id="explore" className="relative py-24 sm:py-32 bg-[#0e1014] border-t border-white/5 overflow-hidden">
       <div
         aria-hidden="true"
-        className="absolute inset-0 bg-cover bg-center opacity-20 pointer-events-none"
-        style={{ backgroundImage: "url('/assets/city-sunset.jpg')" }}
+        className="absolute inset-0 bg-cover bg-center pointer-events-none"
+        style={{ backgroundImage: "url('/assets/experience-background.jpg')" }}
       />
-      <div className="absolute inset-0 bg-gradient-to-b from-[#0e1014]/80 via-[#0e1014]/90 to-[#0e1014]/85 pointer-events-none" />
-      <div className="absolute inset-0 bg-grain opacity-25 pointer-events-none" />
 
       <div className={`section-scroll-fade max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 ${isVisible ? "is-visible" : ""}`}>
         
         {/* Section Header */}
         <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-16 gap-6">
           <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1 bg-white/5 border border-white/10 rounded-sm mb-3">
-              <Compass className="w-3.5 h-3.5 text-sunset" />
-              <span className="font-mono text-xs tracking-[0.25em] text-silver-300 uppercase">
-                SECTION 03 // THE EXPERIENCE
-              </span>
-            </div>
             <h2 className="font-display font-extrabold text-3xl sm:text-5xl text-white tracking-tight">
               EXPLORE <span className="text-sunset">THE FESTIVAL</span>.
             </h2>
-            <p className="font-sans text-sm sm:text-base text-silver-400 mt-2 max-w-xl">
+            <p className="about-description-glow font-sans text-sm sm:text-base text-silver-400 mt-2 max-w-xl">
               Immerse yourself across four signature dimensions of AVESH 2026.
             </p>
           </div>

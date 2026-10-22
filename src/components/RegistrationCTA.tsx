@@ -23,13 +23,6 @@ export const RegistrationCTA: React.FC<RegistrationCTAProps> = ({ onOpenRegister
           {/* Diagonal architectural accent stripe */}
           <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-sunset/20 to-transparent pointer-events-none clip-diagonal-btn" />
           
-          <div className="inline-flex items-center gap-2 px-3 py-1 bg-sunset/15 border border-sunset/30 rounded-sm mb-4">
-            <span className="w-2 h-2 rounded-full bg-sunset animate-ping" />
-            <span className="font-mono text-xs tracking-[0.25em] text-sunset uppercase font-bold">
-              REGISTRATIONS OPEN // LIMITED SLOTS
-            </span>
-          </div>
-
           <h2 className="font-display font-black text-4xl sm:text-6xl text-white tracking-tight leading-[1.05] uppercase max-w-3xl mx-auto mb-4">
             THE MORE YOU LEARN, <span className="text-sunset">THE MORE YOU CAN.</span>
           </h2>

@@ -48,75 +48,58 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenRegister }) => {
       id="hero"
       className="relative flex min-h-[100svh] w-full items-center justify-center overflow-hidden bg-[#0d0e11] px-4 pb-12 pt-32 sm:px-6 sm:pb-16 sm:pt-36"
     >
-      <div aria-hidden="true" className="hero-tech-background pointer-events-none absolute inset-0">
-        <svg
-          className="hero-tech-circuit absolute inset-0 h-full w-full"
-          viewBox="0 0 1440 900"
-          preserveAspectRatio="xMidYMid slice"
-          fill="none"
-        >
-          <g className="hero-circuit-lines" stroke="currentColor" strokeWidth="1.5">
-            <path d="M0 202h108l46 46h152l38 38h102" />
-            <path d="M0 246h88l55 55h115l44 44h126" />
-            <path d="M0 674h96l54-54h122l44-44h128" />
-            <path d="M0 718h126l46-46h118l52-52h102" />
-            <path d="M1440 202h-108l-46 46h-152l-38 38h-102" />
-            <path d="M1440 246h-88l-55 55h-115l-44 44h-126" />
-            <path d="M1440 674h-96l-54-54h-122l-44-44h-128" />
-            <path d="M1440 718h-126l-46-46h-118l-52-52h-102" />
-            <path d="M720 0v94l-38 38v72" />
-            <path d="M720 900v-94l38-38v-72" />
-          </g>
-          <g className="hero-circuit-nodes" fill="currentColor">
-            <circle cx="108" cy="202" r="4" />
-            <circle cx="389" cy="334" r="4" />
-            <circle cx="96" cy="674" r="4" />
-            <circle cx="394" cy="618" r="4" />
-            <circle cx="1332" cy="202" r="4" />
-            <circle cx="1051" cy="334" r="4" />
-            <circle cx="1344" cy="674" r="4" />
-            <circle cx="1046" cy="618" r="4" />
-            <circle cx="720" cy="94" r="4" />
-            <circle cx="720" cy="806" r="4" />
-          </g>
-          <g className="hero-tech-orbits" stroke="currentColor">
-            <circle cx="720" cy="450" r="292" strokeDasharray="2 12" />
-            <circle cx="720" cy="450" r="326" strokeDasharray="68 190" />
-          </g>
-        </svg>
-        <div className="hero-tech-core absolute left-1/2 top-1/2" />
-        <div className="hero-tech-grain absolute inset-0" />
+      {/* Background Image - natural brightness so it remains clearly visible */}
+      <img
+        src="/assets/festival-night-background.png"
+        alt=""
+        aria-hidden="true"
+        className="absolute inset-0 h-full w-full object-cover object-center select-none"
+      />
+
+      {/* 70% dark shade overlay */}
+      <div
+        aria-hidden="true"
+        className="hero-dark-shade pointer-events-none absolute inset-0 opacity-70"
+      />
+
+      {/* Soft Bottom Transition */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-[#0d0e11] to-transparent opacity-40"
+      />
+
+      <div
+        className={`hero-wordmark-position section-scroll-fade absolute inset-x-0 z-10 px-4 ${
+          isVisible ? "is-visible" : ""
+        }`}
+      >
+        <HalftoneWordmarkFooter />
       </div>
 
       <div className={`section-scroll-fade relative z-10 mx-auto flex w-full max-w-5xl flex-col items-center text-center ${isVisible ? "is-visible" : ""}`}>
-        <p className="mb-5 font-mono text-[10px] font-semibold uppercase tracking-[0.3em] text-silver-300 sm:text-xs">
-          CGIT RAIPUR <span className="mx-2 text-sunset">/</span> ANNUAL TECH &amp; CULTURE FEST
-        </p>
-
-        <HalftoneWordmarkFooter />
-
-        <p className="mt-6 max-w-2xl text-sm leading-relaxed text-silver-300 sm:mt-8 sm:text-base">
-          Four days of bold ideas, hands-on technology, fierce competition, and
-          unforgettable performances—bringing the student community together
-          at CGIT Raipur.
-        </p>
-
-        <div className="mt-8 w-full max-w-xl border-y border-white/10 py-5 sm:mt-10">
-          <p className="mb-4 flex items-center justify-center gap-2 font-mono text-[10px] font-bold uppercase tracking-[0.25em] text-sunset sm:text-xs">
-            <Calendar className="h-3.5 w-3.5" />
-            27 — 30 October 2026
-          </p>
-          <div className="grid grid-cols-4 gap-2 sm:gap-6">
-            {countdownUnits.map(({ label, value }) => (
-              <div key={label}>
-                <span className="block font-mono text-2xl font-bold tabular-nums text-white sm:text-3xl">
-                  {String(value).padStart(2, "0")}
-                </span>
-                <span className="mt-1 block font-mono text-[9px] tracking-[0.2em] text-silver-500">
-                  {label}
-                </span>
-              </div>
-            ))}
+        {/* Semi-transparent Glass Scrim for Festival Dates & Countdown */}
+        <div className="relative mt-8 w-full max-w-xl overflow-hidden rounded-sm border border-white/10 bg-[#08090b]/40 px-5 py-5 backdrop-blur-sm shadow-[0_12px_32px_rgba(0,0,0,0.5)] sm:mt-10 sm:px-8 sm:py-6">
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-0 bg-gradient-to-b from-white/[0.03] via-transparent to-black/25"
+          />
+          <div className="relative z-10">
+            <p className="mb-4 flex items-center justify-center gap-2 font-mono text-[10px] font-bold uppercase tracking-[0.25em] text-sunset sm:text-xs">
+              <Calendar className="h-3.5 w-3.5" />
+              27 — 30 October 2026
+            </p>
+            <div className="grid grid-cols-4 gap-2 sm:gap-6">
+              {countdownUnits.map(({ label, value }) => (
+                <div key={label}>
+                  <span className="block font-mono text-2xl font-bold tabular-nums text-white sm:text-3xl">
+                    {String(value).padStart(2, "0")}
+                  </span>
+                  <span className="mt-1 block font-mono text-[9px] tracking-[0.2em] text-silver-500">
+                    {label}
+                  </span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
 
@@ -125,7 +108,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenRegister }) => {
             soundFx.playClick();
             onOpenRegister();
           }}
-          className="mt-8 inline-flex items-center gap-3 bg-sunset px-7 py-3.5 font-mono text-xs font-bold tracking-[0.2em] text-white shadow-[0_0_30px_rgba(255,100,46,0.35)] transition-colors hover:bg-sunset-hover sm:mt-10"
+          className="mt-8 inline-flex items-center gap-3 rounded-sm bg-sunset px-7 py-3.5 font-mono text-xs font-bold tracking-[0.2em] text-white shadow-[0_0_30px_rgba(255,100,46,0.35)] transition-all hover:bg-sunset-hover hover:shadow-[0_0_40px_rgba(255,100,46,0.5)] sm:mt-10"
         >
           REGISTER NOW
           <ArrowRight className="h-4 w-4" />
