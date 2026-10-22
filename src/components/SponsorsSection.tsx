@@ -50,7 +50,7 @@ export const SponsorsSection: React.FC = () => {
         </div>
 
         {/* Sponsor Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
+        <div className="sponsor-card-grid grid grid-cols-2 gap-4 sm:gap-6">
           {SPONSORS_DATA.map((sponsor, index) => {
             const Icon = getIcon(sponsor.iconName);
             return (
@@ -63,9 +63,9 @@ export const SponsorsSection: React.FC = () => {
                   setSelectedSponsorIndex(index);
                 }}
                 aria-pressed={selectedSponsorIndex === index}
-                className={`group relative w-full appearance-none p-6 sm:p-8 bg-[#171717] rounded-sm border border-white/5 hover:border-sunset/50 transition-all duration-300 flex flex-col items-center text-center justify-between hover:shadow-[0_10px_30px_rgba(255,100,46,0.1)] clip-diagonal-card ${
+                className={`sponsor-card group relative w-full appearance-none p-5 sm:p-7 bg-[#171717]/90 rounded-sm border border-white/10 hover:border-sunset/50 transition-all duration-300 flex flex-col items-center text-center justify-between hover:shadow-[0_10px_30px_rgba(255,100,46,0.16)] clip-diagonal-card ${
                   selectedSponsorIndex === index
-                    ? "-translate-y-2 scale-[1.04] z-10 border-sunset shadow-[0_16px_32px_rgba(255,100,46,0.2)]"
+                    ? "is-selected border-sunset shadow-[inset_0_0_0_1px_rgba(255,100,46,0.28),0_12px_30px_rgba(255,100,46,0.16)]"
                     : ""
                 }`}
               >
@@ -75,7 +75,7 @@ export const SponsorsSection: React.FC = () => {
                 </span>
 
                 {/* Tech Icon / Logo Mark */}
-                <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-sm bg-white/5 border border-white/10 flex items-center justify-center text-silver-300 group-hover:text-sunset group-hover:border-sunset/40 group-hover:bg-sunset/10 transition-all duration-300 mb-4">
+                <div className="sponsor-card-icon w-14 h-14 sm:w-16 sm:h-16 rounded-sm bg-white/5 border border-white/10 flex items-center justify-center text-silver-300 group-hover:text-sunset group-hover:border-sunset/40 group-hover:bg-sunset/10 transition-all duration-300">
                   <Icon className="w-7 h-7 sm:w-8 sm:h-8" />
                 </div>
 

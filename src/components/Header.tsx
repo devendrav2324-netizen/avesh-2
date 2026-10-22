@@ -56,16 +56,14 @@ export const Header: React.FC<HeaderProps> = ({ onOpenRegister }) => {
             <a
               href="#hero"
               onClick={() => handleSectionClick("#hero")}
-              className="group flex items-center gap-3.5"
+              className="group flex items-center gap-2.5 sm:gap-3.5"
             >
-              {/* Geometric A Icon */}
-              <div className="relative w-9 h-9 sm:w-10 sm:h-10 bg-[#171717] border border-white/10 flex items-center justify-center rounded-sm overflow-hidden group-hover:border-sunset transition-colors duration-300">
-                <div className="absolute top-0 right-0 w-3 h-3 bg-sunset/20 clip-diagonal-btn" />
-                <span className="font-display font-black text-xl text-white group-hover:text-sunset transition-colors">
-                  A
-                </span>
-                <div className="absolute bottom-0 left-0 w-full h-[2px] bg-sunset scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300" />
-              </div>
+              <img
+                src="/assets/avesh-emblem-transparent.png"
+                alt=""
+                aria-hidden="true"
+                className="header-brand-logo h-10 w-14 object-contain sm:h-11 sm:w-16"
+              />
 
               {/* Title & Institutional Tag */}
               <div className="flex flex-col">
